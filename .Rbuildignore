@@ -1,0 +1,11 @@
+^pbhy\.optr\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^dev\.R$
+^LICENSE\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^doc$
+^Meta$
+^phyopt\.code-workspace$

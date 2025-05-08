@@ -1,0 +1,90 @@
+/* Imports */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('palette.css');
+
+
+/* Basic */
+:root {
+    --main-width: 65%;
+    --min-width: 250px;
+    --border-overflow: calc(0.5rem + 1.5%);
+}
+@media (max-width: 920px) {
+    :root {
+        --main-width: 80%;
+        --border-overflow: calc(1.5%);
+    }
+}
+@media (max-width: 740px) {
+    :root {
+        --main-width: 95%;
+        --border-overflow: calc(1%);
+    }
+}
+
+html, body {
+    font-size: 16px;
+    height: 100%;
+    margin: 0;
+    min-width: var(--min-width);
+}
+
+
+/* Fonts */
+body {
+    font-weight: 400;
+    font-family: 'Nunito Sans', sans-serif;
+    color: var(--fontblack);
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+}
+nav li, nav li a {
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+/* Links */
+a, nav a {
+    color: var(--green);
+    text-decoration: none;
+}
+a:link, a:visited, a:hover, a:active a:focus {
+    color: var(--green);
+}
+a:hover, a:active, a:focus {
+    text-decoration: underline;
+}
+
+
+/* Only for Home and CV: */
+#site-main.personal > section {
+    width: var(--main-width);
+    margin: 0 auto;
+    min-width: var(--min-width);
+    border-bottom: 1px solid var(--darkgray);
+    padding: 2rem var(--border-overflow);
+}
+#site-main.personal > section h2 {
+    margin: 0 0 1.5rem 0;
+}
+#site-main.personal > section:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 2rem;
+}
+
+#site-main.personal > #titlecard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--orange);
+    min-height: calc(8rem - 4px);
+    min-width: var(--min-width);
+    color: black;
+}
+#site-main.personal > #titlecard h1 {
+    margin: 0;
+    text-align: center;
+}

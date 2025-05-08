@@ -1,0 +1,27 @@
+Package: phyopt
+Title: General-Use Population-Based Hybrid Optimization
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Ricardo", "Semião", role = c("aut", "cre"), email = "ricardo.semiao@outlook.com")
+  )
+Description: todo.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    cli (>= 3.0.0),
+    glue
+RdMacros: mathjaxr
+BuildManual: TRUE
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Depends: 
+    purrr (>= 1.0.0),
+    rlang (>= 1.0.0),
+    mathjaxr (>= 1.0.0),
+    R (>= 4.3)
+VignetteBuilder: knitr
+Config/testthat/edition: 3

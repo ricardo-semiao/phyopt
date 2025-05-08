@@ -1,0 +1,325 @@
+---
+title: "Using the Pb-Hybrid Algorithm"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Introduction
+
+In this article, I introduce how to use the `optimize_phy()` function. I'll work with two examples, one trivial, one not so much.
+
+
+## Example
+
+The problem of interest is:
+
+$$
+\begin{array}{lr}
+    \min_{x, \tilde{x}} x^2 + \tilde{x}^2 ~~s.t.~~ \tilde{x} - 2 \geq 0,\\
+    X = \tilde{X} = [-10, 10]
+\end{array}
+$$
+
+<!--
+## Example 2
+
+The problem of interest is:
+
+$$
+\begin{array}{lr}
+    \min_{x, \tilde{x}} x^2 + \tilde{x}^2 ~~s.t.~~ x - 1 \geq 0,~ \tilde{x} - 2 \geq 0,\\
+    X = \tilde{X} = \mathbb{R}
+\end{array}
+$$
+-->
+
+First, lets load the package:
+
+```{r setup}
+library(phyopt)
+```
+
+I'll also set the objects below, but will explain them later.
+
+```{r}
+stopper <- flow_stopper(list(max_iter = t ~ .m >= 20))
+logger <- flow_logger()
+```
+
+
+
+# Solving The Example
+
+First, lets define the mathematical objects of the problem:
+
+```{r}
+f <- \(x, xtil) x^2 + xtil^2
+g <- \(x, xtil) 0
+gtil <- \(xtil) xtil - 2
+
+x_dom <- xtil_dom <- list(c(-10, 10))
+```
+
+Why this format for `x_dom`? It could be different. In the end, it is whichever format will be useful for the way you'll define your operators.
+
+Lets get to it then, for this problem, I'll choose a random (uniform) sampler for initialization, a golden search for optimization, and a genetic algorithm's approach of crossover+mutation for the updater. This could've been a different choice, and the user can even mix and match choices.
+
+
+## Initializer
+
+The numbers of samples $N$ will be fixed as $10$, so I'll set it in the beginning. Then, consider this example of random sampler, that resamples `draw` if it fails the constraint:
+
+```{r}
+n_samples <- 10
+
+initializer <- function(xtil_dom, gtil) {
+  xtil <- rep(NA, n_samples)
+  
+  for (s in seq_len(n_samples)) {
+    draw <- NA
+    while (is.na(draw)) {
+      draw <- runif(1, xtil_dom[[1]][1], xtil_dom[[1]][2])
+      draw <- ifelse(gtil(draw) >= 0, yes = draw, no = NA)
+    }
+    xtil[s] <- draw
+  }
+
+  matrix(xtil, n_samples, 1)
+}
+```
+
+Note that the arguments must be exactly those (with same names). The result is required to be a $X \times \tilde{m}$ matrix:
+
+```{r}
+initializer(xtil_dom, gtil)
+```
+
+
+## Optimizer
+
+Now, lets do the golden search optimizer. Se the [Wikipedia page](https://en.wikipedia.org/wiki/Golden-section_search) to learn more about it.
+
+```{r}
+optimizer <- function(f_s, g_s, x_dom, t, xtil_s) {
+  phi <- 2 / (sqrt(5) + 1)
+
+  a <- x_dom[[1]][1];  b <- x_dom[[1]][2]
+  x1 <- b - phi * (b - a);  x2 <- a + phi * (b - a)
+  fx1 <- f_s(x1);  fx2 <- f_s(x2)
+
+  iter <- 0
+
+  while (abs(b - a) > 1e-5 && iter < 1000) {
+    if (fx1 < fx2) {
+      b <- x2
+      x2 <- x1; fx2 <- fx1
+      x1 <- b - phi * (b - a)
+      fx1 <- f_s(x1)
+    } else {
+      a <- x1
+      x1 <- x2; fx1 <- fx2
+      x2 <- a + phi * (b - a)
+      fx2 <- f_s(x2)
+    }
+    iter <- iter + 1
+  }
+
+  x <- (a + b) / 2
+  data.frame(x = I(matrix(x)), xtil = I(matrix(xtil_s)), f = f_s(x), i = NA)
+}
+```
+
+Again, the arguments names are required. They denote that the `optimizer` will run once for every sample $xtil_s$ in the current population $S_t$. The functions `f_s` and `g_s` will receive values as below:
+
+```{r}
+xtil_s <- 5
+f_s <- \(x) f(x, xtil_s)
+g_s <- \(x) g(x, xtil_s)
+
+optimizer(f_s = f_s, g_s = g_s, x_dom = x_dom, t = 5, xtil_s = xtil_s)
+```
+
+Note the required data frame format. Also note how `I(.)` is used to create a matrix column. Did you knew that data frames could have matrices for columns? See this section of [Advanced R (2e)](https://adv-r.hadley.nz/vectors-chap.html?q=I(#matrix-and-data-frame-columns) for more information. This is a very neat trick that enables the very elegant use of the `flow_*` `formulas` evaluation.
+
+Also note that one could create an optimizer that randomly chooses from a list of optimizers, use different ones at the same time, for sensitivity reasons.
+
+
+## Joining The Pieces
+
+Lets join what we have. In simple terms, the algorithm initializes as below:
+
+```{r}
+results <- vector("list", length(stopper$iter_upper))
+
+results[[1]]$xtil <- initializer(xtil_dom, gtil)
+```
+
+
+Then, it enters a loop (emulated by `t <- 1` for its first iteration), and creates the `xtil_t` ($S_t$) variable. Then, for each sample $s$ we do a loop via `map` (again, see [Advanced R](https://adv-r.hadley.nz/functionals.html#map)), and save the 1-row data frames in a list. This list then is 'rbinded' via `list_rbind`.
+
+```{r}
+t <- 1
+xtil_t <- results[[t]]$xtil
+
+results[[t]] <- list_rbind(map(seq_len(nrow(xtil_t)), function(s) {
+  xtil_s <- xtil_t[s, ]
+  f_s <- \(x) f(x, xtil_s)
+  g_s <- \(x) g(x, xtil_s)
+  optimizer(f_s = f_s, g_s = g_s, x_dom = x_dom, t = t, xtil_s = xtil_s)
+}))
+```
+
+See how it turns out below:
+
+```{r}
+str(results[[t]])
+```
+
+Note the matrices columns. In this case is hard to differentiate because they are 1-column matrices, but this will accommodate any dimension $m$ and $\tilde{m}$.
+
+See the full results below:
+
+```{r}
+results[[t]]
+```
+
+
+## Updater
+
+Now lets move forward, and define the genetic algorithm approach to update the sample. We sort $S_t$ based on the lowest values of $f$ `decreasing = FALSE`, as we are looking for a minimum.
+
+Then, we select pairs of values, with greater probability if they have lower values. They are used to create a "child", which is "mutated" with random multiplicative noise. Finally, the constraint is checked and triggers a resampling if needed.
+
+```{r}
+updater <- function(xtil_dom, gtil, r_t, t) {
+  xtil_ordered <- r_t$xtil[order(r_t$f, decreasing = FALSE), 1]
+  xtil_new <- matrix(NA, nrow = n_samples, ncol = 1)
+
+  probs <- 1 / (1:n_samples)
+  probs <- probs / sum(probs)
+
+  for (s in seq_len(n_samples)) {
+    draw <- NA
+    while (is.na(draw)) {
+      parents <- sample(n_samples, 2, prob = probs)
+      draw <- (xtil_ordered[parents[1]] + xtil_ordered[parents[2]]) / 2
+      draw <- draw * (1 + runif(1, -0.1, 0.1))
+      draw <- ifelse(gtil(draw) >= 0, draw, NA)
+    }
+    xtil_new[s, 1] <- draw
+  }
+
+  xtil_new
+}
+```
+
+Again, fixed argument names and matrix result. See the output below:
+
+```{r}
+updater(xtil_dom = xtil_dom, gtil = gtil, r_t = results[[t]], t = t)
+```
+
+
+## The `optimize_phy` Aggregation
+
+All of these ingredients are combined in the `optimize_phy` function, which also tests if:
+
+- The functions have the correct arguments.
+- The domains have the correct length.
+- The operators have the correct arguments and generate results in the correct format.
+- Catches errors in the operators calls to help debug your code.
+- Calculates metrics to check performance, log them in the console, and stop the algorithm if any reaches some desired value.
+
+
+## Metrics
+
+Lets talk about `flow_stopper` and `flow_logger`. See the full help page for details, but `flow_stopper` recives a list such as:
+
+```{r, results='hide'}
+list(
+  max_iter = t ~ .m >= 20,
+  max_time = time ~ .m >= 600,
+  f_prop = (max(f[[t]]) - max(f[[t - l]])) / abs(max(f[[t - 1]])) ~ .m < 0.01
+)
+```
+
+Each element is a formula, with an expression on the LHS that can access the results up until that point, ie:
+
+- The current iteration `t` or `time`.
+- The sequences of `f` (a $t \times 1$ vector) for all iterations.
+- The sequence of `x` (a $t \times m$ matrix) or `x` (a $t \times \tilde{m}$ matrix).
+- The sequence of meta-information `i`, whichever format you made it to be.
+
+That is, the user can define any metric that he wants. This expression will be evaluated in the current context of the algorithm, via non-standard evaluation (again, [Advanced R](https://adv-r.hadley.nz/evaluation.html?q=non-standar#introduction-19), yes, that is my favorite R book, how did you knew?), using the columns of $results_t$ as variables (hence the beauty of the matrix-columns).
+
+Then, the RHS is an expression that takes the value of the metric in `.m` and returns a single boolean.
+
+Finally, the `check_expr` is an expression that gets the vector of all the booleans (`.ms`) and combines them with some logical expression into a single boolean, `TRUE` if the algorithm should be stopped. This allows for stopping the algorithm only if a group of metrics is true.
+
+`flow_logger` is very similar, but can also access the metrics calculated as variables (hence the names on the list above), and the RHS is a function that formats `.m` into a single string.
+
+Lets set them as below. The only stopping criteria is reaching 20 iterations.
+
+```{r}
+stopper <- flow_stopper(list(max_iter = t ~ .m >= 20))
+logger <- flow_logger()
+```
+
+These objects are comprised of elements that will be used by the algorithm:
+
+```{r}
+str(stopper)
+```
+
+```{r}
+str(logger)
+```
+
+
+
+## The Full Algorithm
+
+Lets run all!
+
+```{r}
+optima <- optimize_phy(
+  f, g, gtil,
+  x_dom, xtil_dom,
+  initializer, optimizer, updater,
+  stopper, logger,
+  check_op = 0
+)
+```
+
+```{r}
+str(optima, 1)
+```
+
+
+We can get the duration, which stopping criterias were met, and all the $R_t$ and $M_t$, including the best (last):
+
+```{r}
+optima$duration
+```
+
+```{r}
+optima$metrics_stop
+```
+
+```{r}
+r_t <- optima$results[[20]]
+r_t[which.max(r_t$f), ]
+```
+
+We can see that we got very close to the global minimum $(0, 2)$. The efficacy is only due to the number of iters and the user code.

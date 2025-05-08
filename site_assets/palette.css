@@ -1,0 +1,32 @@
+:root {
+    --gray: hsl(0, 0%, 95%);
+    --darkgray: hsl(0, 0%, 80%);
+    --lightgray: hsl(0, 0%, 97.5%);
+    --aquagray: hsl(0, 0%, 98.5%);
+    --blackgray: hsl(0, 0%, 40%);
+    --fontblack: hsl(210, 11%, 15%);
+    --red: hsl(350, 100%, 40%);
+    --darkred: hsl(350, 100%, 30%);
+    --lightred: hsl(350, 70%, 60%);
+    --aquared: hsl(350, 75%, 85%);
+    --orange: hsl(25, 100%, 40%);
+    --darkorange: hsl(25, 100%, 25%);
+    --lightorange: hsl(25, 70%, 60%);
+    --aquaorange: hsl(25, 80%, 85%);
+    --yellow: hsl(47, 100%, 45%);
+    --darkyellow: hsl(47, 100%, 30%);
+    --lightyellow: hsl(47, 90%, 70%);
+    --aquayellow: hsl(47, 85%, 85%);
+    --green: hsl(163, 100%, 25%);
+    --darkgreen: hsl(163, 100%, 15%);
+    --lightgreen: hsl(163, 70%, 45%);
+    --aquagreen: hsl(163, 75%, 80%);
+    --blue: hsl(185, 100%, 30%);
+    --darkblue: hsl(185, 100%, 15%);
+    --lightblue: hsl(185, 60%, 50%);
+    --aquablue: hsl(185, 75%, 80%);
+  }
+  
+  /* Compile with: sass "palette/palette.scss" "palette/palette.css" --no-source-map */
+  /* Update site's palette with: Copy-Item -Path "palette/palette.css" -Destination "C:\Users\ricar\OneDrive\A-Trabalho\Prog\Personal\ricardo-semiao.github.io\site_assets" */
+  
