@@ -26,7 +26,7 @@ be defined in the \code{formulas} argument.}
 A \code{"flow_stopper"}-class object to be passed to \code{optimize_phy()}.
 }
 \description{
-\loadmathjax{}
+\loadmathjax
 
 This function creates a flow stopper object that calculate metrics, at each
 iteration, based on the current results of the algorithm, and checks if the

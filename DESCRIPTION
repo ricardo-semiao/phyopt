@@ -17,11 +17,14 @@ BuildManual: TRUE
 Suggests: 
     knitr,
     rmarkdown,
+    mathjaxr (>= 1.0.0),
     testthat (>= 3.0.0)
 Depends: 
     purrr (>= 1.0.0),
     rlang (>= 1.0.0),
-    mathjaxr (>= 1.0.0),
     R (>= 4.3)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+URL: https://https://github.com/ricardo-semiao/phyopt,
+    https://ricardo-semiao.github.io/phyopt/
+BugReports: https://github.com/ricardo-semiao/phyopt/issues

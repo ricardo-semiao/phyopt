@@ -1,7 +1,7 @@
 #' @title Flow Stopper Constructor
 #'
 #' @description
-#' \loadmathjax{}
+#' \loadmathjax
 #'
 #' This function creates a flow stopper object that calculate metrics, at each
 #'  iteration, based on the current results of the algorithm, and checks if the
@@ -73,7 +73,7 @@ flow_stopper <- function(
 #' Flow Logger Constructor
 #'
 #' @description
-#' \loadmathjax{}
+#' \loadmathjax
 #'
 #' This function creates a flow logger object that calculates metrics and logs
 #'  them into the console. The metrics definition are done very similarly to the

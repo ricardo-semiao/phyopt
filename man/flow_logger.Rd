@@ -30,7 +30,7 @@ and \code{\link[cli:cli_ul]{cli::cli_ul()}}, the functions that format the conso
 A \code{"flow_logger"}-class object to be passed to \code{optimize_phy()}.
 }
 \description{
-\loadmathjax{}
+\loadmathjax
 
 This function creates a flow logger object that calculates metrics and logs
 them into the console. The metrics definition are done very similarly to the

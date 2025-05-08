@@ -1,7 +1,7 @@
 #' Optimize a function with the PB-Hybrid algorithm
 #'
 #' @description
-#' \loadmathjax{}
+#' \loadmathjax
 #'
 #' This function implements a two-step, population-based, hybrid optimization
 #'  algorithm, for solving problems of the form:

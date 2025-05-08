@@ -8,6 +8,15 @@
 \description{
 todo.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://https://github.com/ricardo-semiao/phyopt}
+  \item \url{https://ricardo-semiao.github.io/phyopt/}
+  \item Report bugs at \url{https://github.com/ricardo-semiao/phyopt/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Ricardo Semião \email{ricardo.semiao@outlook.com}
 
