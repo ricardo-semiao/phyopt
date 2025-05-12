@@ -6,25 +6,26 @@ Authors@R: c(
   )
 Description: todo.
 License: MIT + file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+URL: https://https://github.com/ricardo-semiao/phyopt,
+    https://ricardo-semiao.github.io/phyopt/
+BugReports: https://github.com/ricardo-semiao/phyopt/issues
 Imports: 
     cli (>= 3.0.0),
-    glue
-RdMacros: mathjaxr
-BuildManual: TRUE
+    glue (>= 1.0.0),
+    mathjaxr (>= 1.0.0)
 Suggests: 
     knitr,
+    quarto,
     rmarkdown,
-    mathjaxr (>= 1.0.0),
     testthat (>= 3.0.0)
 Depends: 
     purrr (>= 1.0.0),
     rlang (>= 1.0.0),
     R (>= 4.3)
-VignetteBuilder: knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+RdMacros: mathjaxr
+BuildManual: TRUE
+VignetteBuilder: quarto
 Config/testthat/edition: 3
-URL: https://https://github.com/ricardo-semiao/phyopt,
-    https://ricardo-semiao.github.io/phyopt/
-BugReports: https://github.com/ricardo-semiao/phyopt/issues

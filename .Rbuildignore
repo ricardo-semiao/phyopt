@@ -1,4 +1,4 @@
-^pbhy\.optr\.Rproj$
+^phyopt\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^dev\.R$
@@ -12,3 +12,5 @@
 ^\.github$
 ^vignettes/\.quarto$
 ^vignettes/*_files$
+^site_assets/$
+^_extensions/$

@@ -1,9 +1,12 @@
 ---
-title: "Using the Pb-Hybrid Algorithm"
-output: rmarkdown::html_vignette
+title: "Using the Phy Algorithm"
+format: 
+  html:
+    toc: true
+    html-math-method: mathjax
 vignette: >
-  %\VignetteIndexEntry{example}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Vignette's Title}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -46,7 +49,8 @@ $$
 
 First, lets load the package:
 
-```{r setup}
+```{r}
+#| echo: false
 library(phyopt)
 ```
 
