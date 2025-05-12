@@ -9,3 +9,6 @@
 ^doc$
 ^Meta$
 ^phyopt\.code-workspace$
+^\.github$
+^vignettes/\.quarto$
+^vignettes/*_files$

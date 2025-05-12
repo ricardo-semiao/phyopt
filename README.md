@@ -7,6 +7,9 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/ricardo-semiao/phyopt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ricardo-semiao/phyopt/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/phyopt)](https://CRAN.R-project.org/package=phyopt)
 <!-- badges: end -->
 
 This packages implements a two-step, population-based, hybrid
