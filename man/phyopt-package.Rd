@@ -4,9 +4,9 @@
 \name{phyopt-package}
 \alias{phyopt}
 \alias{phyopt-package}
-\title{phyopt: General-Use Population-Based Hybrid Optimization}
+\title{phyopt: General-Use Population-Based Hybrid-Optimization}
 \description{
-todo.
+Implement population-based hybrid-optimization algorithms. Separate a problem into two steps, define methods for initializing a population of first-step guesses, optimizing the second step, and updating the population, all with comprehensive helpers and error handling.
 }
 \seealso{
 Useful links:

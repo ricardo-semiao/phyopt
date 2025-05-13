@@ -59,7 +59,7 @@ optimization on the user. Having said that, I think it is decently
 solid. Once I implement tests and run more examples, I figure it will be
 already stable.
 
-Below are some of the features I plan to add in the future:
+Some of the more important features I plan to add in the future are:
 
 - The `testthat` package structure is created for the package, but I
   haven’t had the time to write unir tests yet.

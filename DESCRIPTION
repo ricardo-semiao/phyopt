@@ -1,14 +1,21 @@
 Package: phyopt
-Title: General-Use Population-Based Hybrid Optimization
+Title: General-Use Population-Based Hybrid-Optimization
 Version: 0.0.0.9000
-Authors@R: c(
-    person("Ricardo", "Semião", role = c("aut", "cre"), email = "ricardo.semiao@outlook.com")
-  )
-Description: todo.
+Authors@R: 
+    person("Ricardo", "Semião", , "ricardo.semiao@outlook.com", role = c("aut", "cre"))
+Description: Implement population-based hybrid-optimization algorithms.
+    Separate a problem into two steps, define methods for initializing a
+    population of first-step guesses, optimizing the second step, and
+    updating the population, all with comprehensive helpers and error
+    handling.
 License: MIT + file LICENSE
 URL: https://https://github.com/ricardo-semiao/phyopt,
     https://ricardo-semiao.github.io/phyopt/
 BugReports: https://github.com/ricardo-semiao/phyopt/issues
+Depends: 
+    purrr (>= 1.0.0),
+    R (>= 4.3),
+    rlang (>= 1.0.0)
 Imports: 
     cli (>= 3.0.0),
     glue (>= 1.0.0),
@@ -17,15 +24,15 @@ Suggests:
     knitr,
     quarto,
     rmarkdown,
+    spelling,
     testthat (>= 3.0.0)
-Depends: 
-    purrr (>= 1.0.0),
-    rlang (>= 1.0.0),
-    R (>= 4.3)
+VignetteBuilder: 
+    quarto
+RdMacros: 
+    mathjaxr
+BuildManual: TRUE
+Config/testthat/edition: 3
 Encoding: UTF-8
+Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-RdMacros: mathjaxr
-BuildManual: TRUE
-VignetteBuilder: quarto
-Config/testthat/edition: 3
