@@ -12,7 +12,7 @@ vignette: >
 
 # Introduction
 
-In this article, I introduce the motivation and the theoretical framework behind the `phyopt` package.
+In this article, I introduce the motivation and the theoretical framework behind the `phyopt` package. Consider also seeing the `vignette("example", package = "phyopt")` article for a practical example and implementation explanation of the algorithm.
 
 There is a literature on the use of _hybrid optimization methods_ for using two stages to firstly deal with complex aspects of the problem, and then solve the remaining simpler problem with more efficient methods.
 
@@ -230,13 +230,4 @@ The algorithm is presented below. The user-provided function calls are wrapped i
 
 ![](figures\algorithm.png)
 
-It is very important to read the [`example.Rmd`](docs\articles\example.html) ("Using the Pb-Hybrid Algorithm") vignette, which thoroughly explains the package logic and usage. In its core, it is a wrapper to 'organize' the operators into a two-step hybrid procedure. It is the user that has 'responsibility' for making smart choices on these operators, but the package guarantees (i) thorough tests and error handling to help debugging, and (ii) a very flexible/generalist/agnostic setup, that doesn't restrict the user. The tricks to allow (i) any size of $m$ and $\tilde{m}$; (ii) any kind of operator; (iii) any kind of metric $M_t$ and stopping criteria are specially important.
-
-As one of the goals of the class is good coding practices, I spent lots of effort on the package (more than I should've). To cite some of the features, it:
-
-- Has thorough documentation with follows exactly the notation of this paper, which will be attached to the docs. The argument syntax also follows that notation.
-- Follows the [tidyverse style guide](https://style.tidyverse.org/) using the `styler` and `lintr` packages for consistency.
-- Near-perfectly (minor some dependency shortcuts I took) passes the R CMD check, a necessary step for CRAN submission.
-- Has a website built with `pkgdown` (in the "docs/" folder)[^mathjax].
-
-[^mathjax]: Because of a [known issue](https://github.com/r-lib/pkgdown/issues/2704) in the mathjax rendering, the math notation might not be correctly rendered.
+It is very important to read the "Using the Phy Algorithm" vignette `vignette("example", package = "phyopt")`, which thoroughly explains the package logic and usage. In its core, it is a wrapper to 'organize' the operators into a two-step hybrid procedure. It is the user that has 'responsibility' for making smart choices on these operators, but the package guarantees (i) thorough tests and error handling to help debugging, and (ii) a very flexible/generalist/agnostic setup, that doesn't restrict the user. The tricks to allow (i) any size of $m$ and $\tilde{m}$; (ii) any kind of operator; (iii) any kind of metric $M_t$ and stopping criteria are specially important.

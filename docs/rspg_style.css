@@ -88,9 +88,6 @@ footer#site-footer {
 
 
 /* General margins and paddings */
-#site-main {
-    margin-top: 1rem;
-}
 #site-main .page-header {
     min-height: 0;
 }

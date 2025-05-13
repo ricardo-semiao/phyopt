@@ -12,5 +12,5 @@
 ^\.github$
 ^vignettes/\.quarto$
 ^vignettes/*_files$
-^site_assets/$
+^site_assets$
 ^_extensions/$

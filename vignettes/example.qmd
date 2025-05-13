@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-In this article, I introduce how to use the `optimize_phy()` function. I'll work with two examples, one trivial, one not so much.
+In this article, I introduce how to use the `optimize_phy()` function. I'll work with two examples, one trivial, one not so much. Consider also seeing the `vignette("theoretical_framework", package = "phyopt")` article for a theoretical background of the algorithm.
 
 
 ## Example

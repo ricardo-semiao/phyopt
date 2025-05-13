@@ -7,8 +7,11 @@
 #'  algorithm, for solving problems of the form:
 #'
 #' \mjsdeqn{
-#' \max_{x, \tilde{x}} f(x, \tilde{x}) ~~s.t.~~ g(x, \tilde{x}) \geq 0,~ \tilde{g}(\tilde{x}) \geq 0\\
+#' \begin{array}{c}
+#' \max_{x, \tilde{x}} f(x, \tilde{x}) ~~s.t.~~ g(x, \tilde{x}) \geq 0,
+#' ~ \tilde{g}(\tilde{x}) \geq 0,\\
 #' x \in X,~ \tilde{x} \in \tilde{X}
+#' \end{array}
 #' }
 #'
 #' See the readme for more details on this format of problems, and when a pb-hy

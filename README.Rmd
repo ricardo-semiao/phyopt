@@ -4,14 +4,6 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  out.width = "100%"
-)
-```
-
 # phyopt
 
 <!-- badges: start -->
@@ -23,14 +15,49 @@ knitr::opts_chunk$set(
 This packages implements a two-step, population-based, hybrid optimization  algorithm, for solving problems of the form:
 
 $$
-  \max_{x, \tilde{x}} f(x, \tilde{x}) ~~s.t.~~ g(x, \tilde{x}) \geq 0,~ \tilde{g}(\tilde{x}) \geq 0\\
+\begin{array}{c}
+  \max_{x, \tilde{x}} f(x, \tilde{x}) ~~s.t.~~ g(x, \tilde{x}) \geq 0,~ \tilde{g}(\tilde{x}) \geq 0,\\
   x \in X,~ \tilde{x} \in \tilde{X}
+\end{array}
 $$
 
-The paper fully describing the motivation, theoretical framework, and method design will be made public soon.
+The paper fully describing the motivation, theoretical framework, and method design is available at `vignette("theoretical_framework", package = "phyopt")`.
 
-For now, see the viggnette `example.Rmd`, which contains a simple example but a thorough explanation of how the package works. Additionally, see the documentation for the `optimize_phy()` function, which is the main function of the package
+For now, see the vignette `vignette("example", package = "phyopt")`, which contains a simple example but a thorough explanation of how the package works. Additionally, see the documentation for the `optimize_phy()` function, which is the main function of the package
+
+**Disclaimer:** this package is in the early most stage of life. It hasn't been thoroughly tested and can present several bugs. I don't recommend using it for large-scale projects, yet.
+
+Please report any problems as a GitHub [issue](https://github.com/ricardo-semiao/morphdown/issues). Other comments can be posted as a GitHub [discussion](https://github.com/ricardo-semiao/morphdown/discussions), or sent in my email below. Thank you!
+
+Author: Ricardo Semião e Castro ([ricardo.semiao\@outlook](mailto:ricardo.semiao\@outlook)).
+
 
 ## Installation
 
-The package is not public yet.
+You can install the development version of phyopt like so:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("ricardo-semiao/phyopt")
+```
+
+
+## Development Comments
+
+This package is young, and puts much of the responsibility of the optimization on the user. Having said that, I think it is decently solid. Once I implement tests and run more examples, I figure it will be already stable.
+
+Below are some of the features I plan to add in the future:
+
+- The `testthat` package structure is created for the package, but I haven't had the time to write unir tests yet.
+- Add more complicated examples to `vignette("example", package = "phyopt")`.
+- Expand the suggested metrics on `get_metrics`, also add suggestions formatters for the `logger` object.
+- Add suggested operators for `optimize_phy()`, with common initializers, optimizers, and updaters from the literature.
+- Add an `on.exit()` call to `optimize_pbhy()`, such that it safely returns what it had before reaching an eventual error.
+- Create `summary()` and `plot()` methods for the `optimize_pbhy()` result.
+
+Note that this package:
+
+- Follows the [tydiverse style guide](https://style.tidyverse.org/).
+  - Using the [styler](https://styler.r-lib.org/) and [lintr](https://lintr.r-lib.org/) packages for style consistency.
+- Uses [testthat 3](https://testthat.r-lib.org/) for automate tests.
+- Uses [rlang](https://rlang.r-lib.org/) frameworks for _tidy eval_ and _rlang errors_.
