@@ -3,3 +3,14 @@ template:
   bootstrap: 5
   math-rendering: mathjax
   package: rspkgdown
+
+reference:
+- title: Main function
+  contents:
+  - optimize_phy
+
+- title: Constructor helpers
+  contents:
+  - flow_stopper
+  - flow_logger
+  - get_metric

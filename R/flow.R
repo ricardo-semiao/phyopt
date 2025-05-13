@@ -46,7 +46,7 @@ flow_stopper <- function(
   check_expr <- f_rhs(check_expr)
 
   get_metrics <- function(results, t, time) {
-    data <- c(list_transpose(results), t = t, time = time)
+    data <- c(list_transpose(compact(results), simplify = FALSE), t = t, time = time)
     map(formulas, \(f) eval(f[[2]], data, env_created))
   }
 

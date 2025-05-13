@@ -150,6 +150,7 @@ $$
 $$
 -->
 <p>First, lets load the package:</p>
+<!-- windows-latest (release) had hard time having phyopt pre-installed -->
 <div class="cell">
 <pre><code><span><span class="co">#&gt; Loading required package: purrr</span></span>
 <span><span class="co">#&gt; Loading required package: rlang</span></span>
@@ -201,21 +202,21 @@ $$
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">xtil</span>, <span class="va">n_samples</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<p>Note that the arguments must be exactly those (with same names). The result is required to be a <span class="math inline">\(X \times \tilde{m}\)</span> matrix:</p>
+<p>Note that the arguments must be exactly those (with same names). The result is required to be a <span class="math inline">\(N \times \tilde{m}\)</span> matrix:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">initializer</span><span class="op">(</span><span class="va">xtil_dom</span>, <span class="va">gtil</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           [,1]</span></span>
-<span><span class="co">#&gt;  [1,] 7.522981</span></span>
-<span><span class="co">#&gt;  [2,] 7.977158</span></span>
-<span><span class="co">#&gt;  [3,] 9.414942</span></span>
-<span><span class="co">#&gt;  [4,] 2.154562</span></span>
-<span><span class="co">#&gt;  [5,] 9.231921</span></span>
-<span><span class="co">#&gt;  [6,] 7.942916</span></span>
-<span><span class="co">#&gt;  [7,] 8.405111</span></span>
-<span><span class="co">#&gt;  [8,] 9.740887</span></span>
-<span><span class="co">#&gt;  [9,] 9.046728</span></span>
-<span><span class="co">#&gt; [10,] 4.316240</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1,] 3.807865</span></span>
+<span><span class="co">#&gt;  [2,] 5.848747</span></span>
+<span><span class="co">#&gt;  [3,] 8.246152</span></span>
+<span><span class="co">#&gt;  [4,] 8.402323</span></span>
+<span><span class="co">#&gt;  [5,] 9.525685</span></span>
+<span><span class="co">#&gt;  [6,] 7.282250</span></span>
+<span><span class="co">#&gt;  [7,] 5.207031</span></span>
+<span><span class="co">#&gt;  [8,] 9.935083</span></span>
+<span><span class="co">#&gt;  [9,] 6.514526</span></span>
+<span><span class="co">#&gt; [10,] 9.625350</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="optimizer">Optimizer<a class="anchor" aria-label="anchor" href="#optimizer"></a>
 </h3>
@@ -291,8 +292,8 @@ $$
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">results</span><span class="op">[[</span><span class="va">t</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    10 obs. of  4 variables:</span></span>
 <span><span class="co">#&gt;  $ x   : 'AsIs' num [1:10, 1] 2.05e-06 2.05e-06 2.05e-06 2.05e-06 2.05e-06 ...</span></span>
-<span><span class="co">#&gt;  $ xtil: 'AsIs' num [1:10, 1] 7.69 7.46 7.56 3.92 4.98 ...</span></span>
-<span><span class="co">#&gt;  $ f   : num  59.2 55.6 57.1 15.3 24.8 ...</span></span>
+<span><span class="co">#&gt;  $ xtil: 'AsIs' num [1:10, 1] 3.91 9.42 7.17 3.05 7.94 ...</span></span>
+<span><span class="co">#&gt;  $ f   : num  15.29 88.69 51.42 9.31 63.05 ...</span></span>
 <span><span class="co">#&gt;  $ i   : logi  NA NA NA NA NA NA ...</span></span></code></pre></div>
 </div>
 <p>Note the matrices columns. In this case is hard to differentiate because they are 1-column matrices, but this will accommodate any dimension <span class="math inline">\(m\)</span> and <span class="math inline">\(\tilde{m}\)</span>.</p>
@@ -301,16 +302,16 @@ $$
 <div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span><span class="op">[[</span><span class="va">t</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt;               x     xtil         f  i</span></span>
-<span><span class="co">#&gt; 1  2.053031e-06 7.692710 59.177785 NA</span></span>
-<span><span class="co">#&gt; 2  2.053031e-06 7.455969 55.591472 NA</span></span>
-<span><span class="co">#&gt; 3  2.053031e-06 7.555028 57.078447 NA</span></span>
-<span><span class="co">#&gt; 4  2.053031e-06 3.915745 15.333056 NA</span></span>
-<span><span class="co">#&gt; 5  2.053031e-06 4.983990 24.840151 NA</span></span>
-<span><span class="co">#&gt; 6  2.053031e-06 2.578572  6.649035 NA</span></span>
-<span><span class="co">#&gt; 7  2.053031e-06 4.815474 23.188790 NA</span></span>
-<span><span class="co">#&gt; 8  2.053031e-06 6.127737 37.549164 NA</span></span>
-<span><span class="co">#&gt; 9  2.053031e-06 4.481362 20.082605 NA</span></span>
-<span><span class="co">#&gt; 10 2.053031e-06 5.482931 30.062534 NA</span></span></code></pre></div>
+<span><span class="co">#&gt; 1  2.053031e-06 3.910044 15.288445 NA</span></span>
+<span><span class="co">#&gt; 2  2.053031e-06 9.417402 88.687466 NA</span></span>
+<span><span class="co">#&gt; 3  2.053031e-06 7.170930 51.422241 NA</span></span>
+<span><span class="co">#&gt; 4  2.053031e-06 3.051131  9.309402 NA</span></span>
+<span><span class="co">#&gt; 5  2.053031e-06 7.940594 63.053031 NA</span></span>
+<span><span class="co">#&gt; 6  2.053031e-06 9.665750 93.426731 NA</span></span>
+<span><span class="co">#&gt; 7  2.053031e-06 9.101614 82.839379 NA</span></span>
+<span><span class="co">#&gt; 8  2.053031e-06 9.557790 91.351350 NA</span></span>
+<span><span class="co">#&gt; 9  2.053031e-06 9.364267 87.689504 NA</span></span>
+<span><span class="co">#&gt; 10 2.053031e-06 6.238507 38.918964 NA</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="updater">Updater<a class="anchor" aria-label="anchor" href="#updater"></a>
 </h3>
@@ -344,16 +345,16 @@ $$
 <div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">updater</span><span class="op">(</span>xtil_dom <span class="op">=</span> <span class="va">xtil_dom</span>, gtil <span class="op">=</span> <span class="va">gtil</span>, r_t <span class="op">=</span> <span class="va">results</span><span class="op">[[</span><span class="va">t</span><span class="op">]</span><span class="op">]</span>, t <span class="op">=</span> <span class="va">t</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           [,1]</span></span>
-<span><span class="co">#&gt;  [1,] 3.489478</span></span>
-<span><span class="co">#&gt;  [2,] 5.320593</span></span>
-<span><span class="co">#&gt;  [3,] 3.968944</span></span>
-<span><span class="co">#&gt;  [4,] 3.233447</span></span>
-<span><span class="co">#&gt;  [5,] 4.297553</span></span>
-<span><span class="co">#&gt;  [6,] 5.569595</span></span>
-<span><span class="co">#&gt;  [7,] 6.904996</span></span>
-<span><span class="co">#&gt;  [8,] 4.680665</span></span>
-<span><span class="co">#&gt;  [9,] 5.200570</span></span>
-<span><span class="co">#&gt; [10,] 3.856403</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1,] 3.737857</span></span>
+<span><span class="co">#&gt;  [2,] 4.986482</span></span>
+<span><span class="co">#&gt;  [3,] 3.289730</span></span>
+<span><span class="co">#&gt;  [4,] 4.930159</span></span>
+<span><span class="co">#&gt;  [5,] 6.081697</span></span>
+<span><span class="co">#&gt;  [6,] 3.290886</span></span>
+<span><span class="co">#&gt;  [7,] 5.439877</span></span>
+<span><span class="co">#&gt;  [8,] 6.143662</span></span>
+<span><span class="co">#&gt;  [9,] 6.136750</span></span>
+<span><span class="co">#&gt; [10,] 3.509403</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h3 id="the-optimize_phy-aggregation">The <code>optimize_phy</code> Aggregation<a class="anchor" aria-label="anchor" href="#the-optimize_phy-aggregation"></a>
 </h3>
@@ -421,26 +422,26 @@ $$
 <span>  <span class="va">stopper</span>, <span class="va">logger</span>,</span>
 <span>  check_op <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 1 -- mean(f): 51.2194</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 2 -- mean(f): 35.2272</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 3 -- mean(f): 26.8411</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 4 -- mean(f): 20.8011</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 5 -- mean(f): 17.1202</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 6 -- mean(f): 16.3218</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 7 -- mean(f): 13.6875</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 8 -- mean(f): 11.756</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 9 -- mean(f): 11.008</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 10 -- mean(f): 9.3958</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 11 -- mean(f): 9.0119</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 12 -- mean(f): 8.4804</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 13 -- mean(f): 7.854</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 14 -- mean(f): 7.7832</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 15 -- mean(f): 7.1996</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 16 -- mean(f): 7.0114</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 17 -- mean(f): 6.5151</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 18 -- mean(f): 5.6931</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 19 -- mean(f): 4.9883</span></span>
-<span><span class="co">#&gt; → =&gt; Iter: 20 -- mean(f): 5.0614</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 1 -- mean(f): 29.0643</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 2 -- mean(f): 12.8244</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 3 -- mean(f): 8.8746</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 4 -- mean(f): 4.967</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 5 -- mean(f): 4.611</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 6 -- mean(f): 4.8232</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 7 -- mean(f): 4.5581</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 8 -- mean(f): 4.5334</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 9 -- mean(f): 4.6398</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 10 -- mean(f): 4.6648</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 11 -- mean(f): 4.7027</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 12 -- mean(f): 4.754</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 13 -- mean(f): 4.8174</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 14 -- mean(f): 4.7678</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 15 -- mean(f): 5.0016</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 16 -- mean(f): 4.7318</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 17 -- mean(f): 4.9175</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 18 -- mean(f): 4.6491</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 19 -- mean(f): 4.8853</span></span>
+<span><span class="co">#&gt; → =&gt; Iter: 20 -- mean(f): 4.8674</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ✔ Finished after 20 iterations. Stopping criteria(s) were:</span></span>
 <span><span class="co">#&gt; • max_iter: t ~ .m &gt;= 20</span></span></code></pre></div>
@@ -463,13 +464,13 @@ $$
 <span><span class="co">#&gt; [1] 20</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $time_init</span></span>
-<span><span class="co">#&gt; Time difference of 0.018893 secs</span></span>
+<span><span class="co">#&gt; Time difference of 0.06554794 secs</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $time_loop</span></span>
-<span><span class="co">#&gt; Time difference of 2.229653 secs</span></span>
+<span><span class="co">#&gt; Time difference of 1.097071 secs</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $time_total</span></span>
-<span><span class="co">#&gt; Time difference of 2.248549 secs</span></span></code></pre></div>
+<span><span class="co">#&gt; Time difference of 1.162633 secs</span></span></code></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
@@ -482,7 +483,7 @@ $$
 <code class="sourceCode R"><span><span class="va">r_t</span> <span class="op">&lt;-</span> <span class="va">optima</span><span class="op">$</span><span class="va">results</span><span class="op">[[</span><span class="fl">20</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">r_t</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">r_t</span><span class="op">$</span><span class="va">f</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="co">#&gt;              x     xtil        f  i</span></span>
-<span><span class="co">#&gt; 3 2.053031e-06 2.600605 6.763146 NA</span></span></code></pre></div>
+<span><span class="co">#&gt; 2 2.053031e-06 2.321075 5.387391 NA</span></span></code></pre></div>
 </div>
 <p>We can see that we got very close to the global minimum <span class="math inline">\((0, 2)\)</span>. The efficacy is only due to the number of iters and the user code.</p>
 </section></section><script id="quarto-html-after-body" type="application/javascript">

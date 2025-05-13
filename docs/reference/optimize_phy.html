@@ -7,7 +7,7 @@
   };
 </script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Optimize a function with the PB-Hybrid algorithm — optimize_phy"><meta name="description" content="
 This function implements a two-step, population-based, hybrid optimization
- algorithm, for solving problems of the form:
+algorithm, for solving problems of the form:
 \[
 \begin{array}{c}
 \max_{x, \tilde{x}} f(x, \tilde{x}) ~~s.t.~~ g(x, \tilde{x}) \geq 0,
@@ -15,10 +15,10 @@ This function implements a two-step, population-based, hybrid optimization
 x \in X,~ \tilde{x} \in \tilde{X}
 \end{array}
 \]
-See the readme for more details on this format of problems, and when a pb-hy
- algorithm would be useful."><meta property="og:description" content="
+See the readme and vignettes for more details on this format of problems, and
+when a phy algorithm would be useful."><meta property="og:description" content="
 This function implements a two-step, population-based, hybrid optimization
- algorithm, for solving problems of the form:
+algorithm, for solving problems of the form:
 \[
 \begin{array}{c}
 \max_{x, \tilde{x}} f(x, \tilde{x}) ~~s.t.~~ g(x, \tilde{x}) \geq 0,
@@ -26,8 +26,8 @@ This function implements a two-step, population-based, hybrid optimization
 x \in X,~ \tilde{x} \in \tilde{X}
 \end{array}
 \]
-See the readme for more details on this format of problems, and when a pb-hy
- algorithm would be useful."><link rel="stylesheet" href="../rspg_style.css"></head><body>
+See the readme and vignettes for more details on this format of problems, and
+when a phy algorithm would be useful."><link rel="stylesheet" href="../rspg_style.css"></head><body>
   <header id="site-header"><div class="header-block"></div>
       <nav><ul><li class="nav-li">
                   <a href="/">Home</a>
@@ -106,7 +106,7 @@ See the readme for more details on this format of problems, and when a pb-hy
     <div class="ref-description section level2">
     <p><script id="MathJax-script" async src="../../mathjaxr/doc/mathjax/es5/tex-chtml-full.js"></script></p>
 <p>This function implements a two-step, population-based, hybrid optimization
- algorithm, for solving problems of the form:</p>
+algorithm, for solving problems of the form:</p>
 <p>\[
 \begin{array}{c}
 \max_{x, \tilde{x}} f(x, \tilde{x}) ~~s.t.~~ g(x, \tilde{x}) \geq 0,
@@ -114,8 +114,8 @@ See the readme for more details on this format of problems, and when a pb-hy
 x \in X,~ \tilde{x} \in \tilde{X}
 \end{array}
 \]</p>
-<p>See the readme for more details on this format of problems, and when a pb-hy
- algorithm would be useful.</p>
+<p>See the readme and vignettes for more details on this format of problems, and
+when a phy algorithm would be useful.</p>
     </div>
 
     <div class="section level2">
@@ -151,7 +151,7 @@ x \in X,~ \tilde{x} \in \tilde{X}
 
 <dt id="arg-x-dom-xtil-dom">x_dom, xtil_dom<a class="anchor" aria-label="anchor" href="#arg-x-dom-xtil-dom"></a></dt>
 <dd><p>Domains <em></em>\(X\) and <em></em>\(\tilde{X}\). These will
-be used by `optimizer` (for <em></em>\(X\)), and `initializer`/`updater` (for
+be used by <code>optimizer</code> (for <em></em>\(X\)), and <code>initializer</code>/<code>updater</code> (for
 <em></em>\(\tilde{X}\)). Should be a list with <em></em>\(m\) and <em></em>\(\tilde{m}\)
 entries.</p></dd>
 
@@ -173,21 +173,21 @@ that <em></em>\(S_0 = \text{initializer}(\tilde{X}, \tilde{g})\) (see details).<
 
 <dt id="arg-stopper">stopper<a class="anchor" aria-label="anchor" href="#arg-stopper"></a></dt>
 <dd><p>Stopping criteria for the algorithm, created via
-[flow_stopper()].</p></dd>
+<code><a href="flow_stopper.html">flow_stopper()</a></code>.</p></dd>
 
 
 <dt id="arg-logger">logger<a class="anchor" aria-label="anchor" href="#arg-logger"></a></dt>
-<dd><p>Logger for tracking the process, created via [flow_logger()].</p></dd>
+<dd><p>Logger for tracking the process, created via <code><a href="flow_logger.html">flow_logger()</a></code>.</p></dd>
 
 
 <dt id="arg-check-samples">check_samples<a class="anchor" aria-label="anchor" href="#arg-check-samples"></a></dt>
 <dd><p>Number of samples to be expected in <em></em>\(S_t\). Set to
-`NULL` to not check (required if it changes with iterations <em></em>\(t\)).</p></dd>
+<code>NULL</code> to not check (required if it changes with iterations <em></em>\(t\)).</p></dd>
 
 
 <dt id="arg-check-op">check_op<a class="anchor" aria-label="anchor" href="#arg-check-op"></a></dt>
 <dd><p>Integer vector with iterations to check if the operators are
-producing results with the needed format. Helps catching errors. Set to `0`
+producing results with the needed format. Helps catching errors. Set to <code>0</code>
 to not check.</p></dd>
 
 </dl></div>
@@ -202,18 +202,35 @@ to not check.</p></dd>
 
 <dt>duration</dt>
 <dd><p>Timing information for initialization, main loop, and total
- execution.</p></dd>
+execution.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function is a wrapper for the operator functions, organizing them in the
- correct structure of a population-based, two-step, hybrid algorithm. But, it
- is the job of the user to implement the operators correctly:
-* `initializer`: todo.
-* `optimizer`: todo.
-* `updater`: todo.</p>
-    </div>
+correct structure of a population-based, two-step, hybrid algorithm. But, it
+is the job of the user to implement the operators correctly. I highly
+recommend seeing <code><a href="../articles/example.html">vignette("example")</a></code> to fully understand their use:</p><ul><li><p><code>initializer</code>:</p><ul><li><p>Arguments: <code>xtil_dom</code> and <code>gtil</code>.</p></li>
+<li><p>Returns: A <em></em>\(N \times \tilde{m}\) matrix of initial guesses for
+<em></em>\(\tilde{x}\), where <em></em>\(N\) is the initial population size.</p></li>
+</ul></li>
+<li><p><code>optimizer</code>:</p><ul><li><p>Arguments: <code>f_s</code>, <code>g_s</code> - the functions conditional on a sample
+<em></em>\(\tilde{x}_s\) -, <code>x_dom</code>, <code>t</code> - the current iteration -, and
+<code>xtil_s</code> - the current sample.</p></li>
+<li><p>Returns: A data.frame with four columns:</p><ul><li><p><code>x</code>: A <em></em>\(1 \times m\) vector of optimal values <em></em>\(x^*\), given
+<em></em>\(\tilde{x}_s\). Hint: use <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> to create matrix-columns.</p></li>
+<li><p><code>xtil</code>: A <em></em>\(1 \times \tilde{m}\) matrix with <code>xtil_s</code>.</p></li>
+<li><p><code>f</code>: The value of <em></em>\(f(x^*, \tilde{x}_s)\) (a single double).</p></li>
+<li><p><code>i</code>: Any meta-information you want to add, for use in the <code>updater</code> or
+metrics methods. If none, use a single <code>NA</code>.</p></li>
+</ul></li>
+</ul></li>
+<li><p><code>updater</code>:</p><ul><li><p>Arguments: <code>xtil_dom</code>, <code>gtil</code>, <code>r_t</code> - the results of the last
+iteration's optimizer (a data frame) -, and <code>t</code>.</p></li>
+<li><p>Returns: A new <em></em>\(N \times \tilde{m}\) matrix of guesses, but note
+that <em></em>\(N\) can change between iterations.</p></li>
+</ul></li>
+</ul></div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

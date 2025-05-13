@@ -26,7 +26,7 @@ optimize_phy(
 \mjseqn{\tilde{g}(\tilde{x})}. By default, never-binding ones.}
 
 \item{x_dom, xtil_dom}{Domains \mjseqn{X} and \mjseqn{\tilde{X}}. These will
-be used by `optimizer` (for \mjseqn{X}), and `initializer`/`updater` (for
+be used by \code{optimizer} (for \mjseqn{X}), and \code{initializer}/\code{updater} (for
 \mjseqn{\tilde{X}}). Should be a list with \mjseqn{m} and \mjseqn{\tilde{m}}
 entries.}
 
@@ -40,15 +40,15 @@ that \mjseqn{S_0 = \text{initializer}(\tilde{X}, \tilde{g})} (see details).}
 \mjseqn{S_{t+1} = \text{updater}(\tilde{X}, \tilde{g}, t, S_t, R_t)}.}
 
 \item{stopper}{Stopping criteria for the algorithm, created via
-[flow_stopper()].}
+\code{\link[=flow_stopper]{flow_stopper()}}.}
 
-\item{logger}{Logger for tracking the process, created via [flow_logger()].}
+\item{logger}{Logger for tracking the process, created via \code{\link[=flow_logger]{flow_logger()}}.}
 
 \item{check_samples}{Number of samples to be expected in \mjseqn{S_t}. Set to
-`NULL` to not check (required if it changes with iterations \mjseqn{t}).}
+\code{NULL} to not check (required if it changes with iterations \mjseqn{t}).}
 
 \item{check_op}{Integer vector with iterations to check if the operators are
-producing results with the needed format. Helps catching errors. Set to `0`
+producing results with the needed format. Helps catching errors. Set to \code{0}
 to not check.}
 }
 \value{
@@ -56,13 +56,13 @@ A list containing:
 \item{results}{Optimization results for each iteration.}
 \item{metrics}{Metrics calculated during the optimization process.}
 \item{duration}{Timing information for initialization, main loop, and total
- execution.}
+execution.}
 }
 \description{
 \loadmathjax
 
 This function implements a two-step, population-based, hybrid optimization
- algorithm, for solving problems of the form:
+algorithm, for solving problems of the form:
 
 \mjsdeqn{
 \begin{array}{c}
@@ -72,14 +72,42 @@ x \in X,~ \tilde{x} \in \tilde{X}
 \end{array}
 }
 
-See the readme for more details on this format of problems, and when a pb-hy
- algorithm would be useful.
+See the readme and vignettes for more details on this format of problems, and
+when a phy algorithm would be useful.
 }
 \details{
 This function is a wrapper for the operator functions, organizing them in the
- correct structure of a population-based, two-step, hybrid algorithm. But, it
- is the job of the user to implement the operators correctly:
-* `initializer`: todo.
-* `optimizer`: todo.
-* `updater`: todo.
+correct structure of a population-based, two-step, hybrid algorithm. But, it
+is the job of the user to implement the operators correctly. I highly
+recommend seeing \code{vignette("example")} to fully understand their use:
+\itemize{
+\item \code{initializer}:
+\itemize{
+\item Arguments: \code{xtil_dom} and \code{gtil}.
+\item Returns: A \mjseqn{N \times \tilde{m}} matrix of initial guesses for
+\mjseqn{\tilde{x}}, where \mjseqn{N} is the initial population size.
+}
+\item \code{optimizer}:
+\itemize{
+\item Arguments: \code{f_s}, \code{g_s} - the functions conditional on a sample
+\mjseqn{\tilde{x}_s} -, \code{x_dom}, \code{t} - the current iteration -, and
+\code{xtil_s} - the current sample.
+\item Returns: A data.frame with four columns:
+\itemize{
+\item \code{x}: A \mjseqn{1 \times m} vector of optimal values \mjseqn{x^*}, given
+\mjseqn{\tilde{x}_s}. Hint: use \code{I()} to create matrix-columns.
+\item \code{xtil}: A \mjseqn{1 \times \tilde{m}} matrix with \code{xtil_s}.
+\item \code{f}: The value of \mjseqn{f(x^*, \tilde{x}_s)} (a single double).
+\item \code{i}: Any meta-information you want to add, for use in the \code{updater} or
+metrics methods. If none, use a single \code{NA}.
+}
+}
+\item \code{updater}:
+\itemize{
+\item Arguments: \code{xtil_dom}, \code{gtil}, \code{r_t} - the results of the last
+iteration's optimizer (a data frame) -, and \code{t}.
+\item Returns: A new \mjseqn{N \times \tilde{m}} matrix of guesses, but note
+that \mjseqn{N} can change between iterations.
+}
+}
 }

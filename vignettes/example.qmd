@@ -49,6 +49,17 @@ $$
 
 First, lets load the package:
 
+<!-- windows-latest (release) had hard time having phyopt pre-installed -->
+
+```{r}
+#| include: false
+#| echo: false
+if (!requireNamespace("phyopt", quietly = TRUE)) {
+  install.packages("remotes")
+  remotes::install_github("ricardo-semiao/phyopt")
+}
+```
+
 ```{r}
 #| echo: false
 library(phyopt)
@@ -103,7 +114,7 @@ initializer <- function(xtil_dom, gtil) {
 }
 ```
 
-Note that the arguments must be exactly those (with same names). The result is required to be a $X \times \tilde{m}$ matrix:
+Note that the arguments must be exactly those (with same names). The result is required to be a $N \times \tilde{m}$ matrix:
 
 ```{r}
 initializer(xtil_dom, gtil)

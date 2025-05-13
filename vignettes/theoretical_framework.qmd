@@ -228,6 +228,6 @@ The main function is `optimize_phy()`. It, and all others, have documentation pa
 
 The algorithm is presented below. The user-provided function calls are wrapped in `try_op` function, to catch and notify errors in a user-friendly way. The notation `x\$y` indicates an object $y$ within an object $x$.
 
-![](figures\algorithm.png)
+![](algorithm.png)
 
 It is very important to read the "Using the Phy Algorithm" vignette `vignette("example", package = "phyopt")`, which thoroughly explains the package logic and usage. In its core, it is a wrapper to 'organize' the operators into a two-step hybrid procedure. It is the user that has 'responsibility' for making smart choices on these operators, but the package guarantees (i) thorough tests and error handling to help debugging, and (ii) a very flexible/generalist/agnostic setup, that doesn't restrict the user. The tricks to allow (i) any size of $m$ and $\tilde{m}$; (ii) any kind of operator; (iii) any kind of metric $M_t$ and stopping criteria are specially important.

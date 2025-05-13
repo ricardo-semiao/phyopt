@@ -14,8 +14,8 @@
 #' \end{array}
 #' }
 #'
-#' See the readme for more details on this format of problems, and when a pb-hy
-#'  algorithm would be useful.
+#' See the readme and vignettes for more details on this format of problems, and
+#'  when a phy algorithm would be useful.
 #'
 #' @param f Objective function \mjseqn{f(x, \tilde{x})}.
 #' @param g,gtil Constraint functions \mjseqn{g(x, \tilde{x})} and
@@ -41,11 +41,32 @@
 #'
 #' @details
 #' This function is a wrapper for the operator functions, organizing them in the
-#'  correct structure of a population-based, two-step, hybrid algorithm. But, it
-#'  is the job of the user to implement the operators correctly:
-#' * `initializer`: todo.
-#' * `optimizer`: todo.
-#' * `updater`: todo.
+#' correct structure of a population-based, two-step, hybrid algorithm. But, it
+#' is the job of the user to implement the operators correctly. I highly
+#' recommend seeing `vignette("example")` to fully understand their use:
+#'
+#' - `initializer`:
+#'   - Arguments: `xtil_dom` and `gtil`.
+#'   - Returns: A \mjseqn{N \times \tilde{m}} matrix of initial guesses for
+#'     \mjseqn{\tilde{x}}, where \mjseqn{N} is the initial population size.
+#'
+#' - `optimizer`:
+#'   - Arguments: `f_s`, `g_s` - the functions conditional on a sample
+#'     \mjseqn{\tilde{x}_s} -, `x_dom`, `t` - the current iteration -, and
+#'     `xtil_s` - the current sample.
+#'   - Returns: A data.frame with four columns:
+#'     - `x`: A \mjseqn{1 \times m} vector of optimal values \mjseqn{x^*}, given
+#'       \mjseqn{\tilde{x}_s}. Hint: use `I()` to create matrix-columns.
+#'     - `xtil`: A \mjseqn{1 \times \tilde{m}} matrix with `xtil_s`.
+#'     - `f`: The value of \mjseqn{f(x^*, \tilde{x}_s)} (a single double).
+#'     - `i`: Any meta-information you want to add, for use in the `updater` or
+#'       metrics methods. If none, use a single `NA`.
+#'
+#' - `updater`:
+#'   - Arguments: `xtil_dom`, `gtil`, `r_t` - the results of the last
+#'     iteration's optimizer (a data frame) -, and `t`.
+#'   - Returns: A new \mjseqn{N \times \tilde{m}} matrix of guesses, but note
+#'     that \mjseqn{N} can change between iterations.
 #'
 #' @return A list containing:
 #' \item{results}{Optimization results for each iteration.}
@@ -53,7 +74,6 @@
 #' \item{duration}{Timing information for initialization, main loop, and total
 #'  execution.}
 #'
-#' @noMd
 #' @export
 optimize_phy <- function(
   f = \(x, xtil) NA, g = \(x, xtil) 0, gtil = \(xtil) 0,
