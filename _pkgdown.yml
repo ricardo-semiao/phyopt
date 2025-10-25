@@ -1,4 +1,4 @@
-url: https://ricardo-semiao.github.io/phyopt/
+url: ./ #https://ricardo-semiao.github.io/tools/phyopt
 template:
   bootstrap: 5
   math-rendering: mathjax

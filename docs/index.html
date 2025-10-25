@@ -5,10 +5,9 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="Ricardo Semião e Castro" name="Author">
-<link href="/site_assets/img/icon.png" rel="icon" type="image/png">
-<link href="/site_assets/img/icon.png" rel="shortcut icon" type="image/png">
-<link href="/site_assets/site_structure.css" rel="stylesheet">
-<link href="/site_assets/site_style.css" rel="stylesheet">
+<link href="/assets/img/icon.png" rel="icon" type="image/png">
+<link href="/assets/img/icon.png" rel="shortcut icon" type="image/png">
+<link href="/assets/global.css" rel="stylesheet">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,49 +25,12 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="General-Use Population-Based Hybrid-Optimization">
 <meta name="description" content="Implement population-based hybrid-optimization algorithms. Separate a problem into two steps, define methods for initializing a population of first-step guesses, optimizing the second step, and updating the population, all with comprehensive helpers and error handling.">
 <meta property="og:description" content="Implement population-based hybrid-optimization algorithms. Separate a problem into two steps, define methods for initializing a population of first-step guesses, optimizing the second step, and updating the population, all with comprehensive helpers and error handling.">
-<link rel="stylesheet" href="rspg_style.css">
+<link rel="stylesheet" href="assets/rspd_module.css">
 </head>
 <body>
-  <header id="site-header"><div class="header-block"></div>
-      <nav><ul>
-<li class="nav-li">
-                  <a href="/">Home</a>
-              </li>
-              <li class="nav-li">
-                  <a href="/cv.html">CV</a>
-              </li>
-              <li class="nav-drop">
-                  <p>Courses</p>
-                  <button></button>
-                  <ul>
-<li class="nav-li">
-                          <a href="/course-rfcd/">R (RFCD)</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/course-ccia/">CS (CCIA)</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/course-paaml/">Python (PAAML)</a>
-                      </li>
-                  </ul>
-</li>
-              <li class="nav-drop">
-                  <p>Packages</p>
-                  <button></button>
-                  <ul>
-<li class="nav-li">
-                          <a href="/mtsdesc/">mtsdesc</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/phyopt/">phyopt</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/morphdown/">morphdown</a>
-                      </li>
-                  </ul>
-</li>
-          </ul></nav><div class="header-block"></div>
-  </header><a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+  <!-- @@site-header@@ added in the personal site build step -->
+
+  <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
 
@@ -101,7 +63,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ricardo-semiao/phyopt/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="nav-link" href="https://github.com/ricardo-semiao/phyopt/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -124,7 +86,7 @@
 <p>The paper fully describing the motivation, theoretical framework, and method design is available at <code><a href="articles/theoretical_framework.html">vignette("theoretical_framework", package = "phyopt")</a></code>.</p>
 <p>For now, see the vignette <code><a href="articles/example.html">vignette("example", package = "phyopt")</a></code>, which contains a simple example but a thorough explanation of how the package works. Additionally, see the documentation for the <code><a href="reference/optimize_phy.html">optimize_phy()</a></code> function, which is the main function of the package</p>
 <p><strong>Disclaimer:</strong> this package is in the early most stage of life. It hasn’t been thoroughly tested and can present several bugs. I don’t recommend using it for large-scale projects, yet.</p>
-<p>Please report any problems as a GitHub <a href="https://github.com/ricardo-semiao/morphdown/issues" class="external-link">issue</a>. Other comments can be posted as a GitHub <a href="https://github.com/ricardo-semiao/morphdown/discussions" class="external-link">discussion</a>, or sent in my email below. Thank you!</p>
+<p>Please report any problems as a GitHub <a href="https://github.com/ricardo-semiao/morphdown/issues">issue</a>. Other comments can be posted as a GitHub <a href="https://github.com/ricardo-semiao/morphdown/discussions">discussion</a>, or sent in my email below. Thank you!</p>
 <p>Author: Ricardo Semião e Castro (<a href="mailto:ricardo.semiao@outlook" class="email">ricardo.semiao@outlook</a>).</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -132,7 +94,7 @@
 <p>You can install the development version of phyopt like so:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ricardo-semiao/phyopt"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ricardo-semiao/phyopt"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="development-comments">Development Comments<a class="anchor" aria-label="anchor" href="#development-comments"></a>
@@ -144,26 +106,26 @@
 <li>Add more complicated examples to <code><a href="articles/example.html">vignette("example", package = "phyopt")</a></code>.</li>
 <li>Expand the suggested metrics on <code>get_metrics</code>, also add suggestions formatters for the <code>logger</code> object.</li>
 <li>Add suggested operators for <code><a href="reference/optimize_phy.html">optimize_phy()</a></code>, with common initializers, optimizers, and updaters from the literature.</li>
-<li>Add an <code><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit()</a></code> call to <code>optimize_pbhy()</code>, such that it safely returns what it had before reaching an eventual error.</li>
-<li>Create <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods for the <code>optimize_pbhy()</code> result.</li>
+<li>Add an <code><a href="https://rdrr.io/r/base/on.exit.html">on.exit()</a></code> call to <code>optimize_pbhy()</code>, such that it safely returns what it had before reaching an eventual error.</li>
+<li>Create <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> methods for the <code>optimize_pbhy()</code> result.</li>
 </ul>
 <p>Note that this package:</p>
 <ul>
-<li>Follows the <a href="https://style.tidyverse.org/" class="external-link">tydiverse style guide</a>.
+<li>Follows the <a href="https://style.tidyverse.org/">tydiverse style guide</a>.
 <ul>
-<li>Using the <a href="https://styler.r-lib.org/" class="external-link">styler</a> and <a href="https://lintr.r-lib.org/" class="external-link">lintr</a> packages for style consistency.</li>
+<li>Using the <a href="https://styler.r-lib.org/">styler</a> and <a href="https://lintr.r-lib.org/">lintr</a> packages for style consistency.</li>
 </ul>
 </li>
-<li>Uses <a href="https://testthat.r-lib.org/" class="external-link">testthat 3</a> for automate tests.</li>
-<li>Uses <a href="https://rlang.r-lib.org/" class="external-link">rlang</a> frameworks for <em>tidy eval</em> and <em>rlang errors</em>.</li>
+<li>Uses <a href="https://testthat.r-lib.org/">testthat 3</a> for automate tests.</li>
+<li>Uses <a href="https://rlang.r-lib.org/">rlang</a> frameworks for <em>tidy eval</em> and <em>rlang errors</em>.</li>
 </ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/ricardo-semiao/phyopt/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/ricardo-semiao/phyopt/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/ricardo-semiao/phyopt/">Browse source code</a></li>
+<li><a href="https://github.com/ricardo-semiao/phyopt/issues">Report a bug</a></li>
 </ul>
 </div>
 
@@ -171,7 +133,7 @@
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 
@@ -193,9 +155,9 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://github.com/ricardo-semiao/phyopt/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/ricardo-semiao/phyopt/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://CRAN.R-project.org/package=phyopt" class="external-link"><img src="https://www.r-pkg.org/badges/version/phyopt" alt="CRAN status"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://github.com/ricardo-semiao/phyopt/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/ricardo-semiao/phyopt/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=phyopt"><img src="https://www.r-pkg.org/badges/version/phyopt" alt="CRAN status"></a></li>
 </ul>
 </div>
 
@@ -206,8 +168,8 @@
   </div>
 
   <footer id="site-footer"><div>
-          <p>Page built on <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>, with <a href="https://github.com/ricardo-semiao/ricardo-semiao/tree/main/themes/rspkgdown" class="external-link">rspkgdown</a> theme.</p>
+          <p>Page built on <a href="https://pkgdown.r-lib.org/">pkgdown</a>, with <a href="https://github.com/ricardo-semiao/ricardo-semiao/tree/main/themes/rspkgdown">rspkgdown</a> theme.</p>
       </div>
-  </footer><script src="/site_assets/site_structure.js"></script>
+  </footer><!-- @@site-scripts@@ added in the personal site build step -->
 </body>
 </html>

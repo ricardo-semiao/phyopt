@@ -1,4 +1,5 @@
 ^phyopt\.Rproj$
+^phyopt\.code-workspace$
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^dev\.R$
@@ -8,7 +9,7 @@
 ^pkgdown$
 ^doc$
 ^Meta$
-^phyopt\.code-workspace$
+^personal$
 ^\.github$
 ^vignettes/\.quarto$
 ^vignettes/*_files$

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="Ricardo Semião e Castro" name="Author"><link href="/site_assets/img/icon.png" rel="icon" type="image/png"><link href="/site_assets/img/icon.png" rel="shortcut icon" type="image/png"><link href="/site_assets/site_structure.css" rel="stylesheet"><link href="/site_assets/site_style.css" rel="stylesheet"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>phyopt | Ricardo Semião</title><!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="Ricardo Semião e Castro" name="Author"><link href="/assets/img/icon.png" rel="icon" type="image/png"><link href="/assets/img/icon.png" rel="shortcut icon" type="image/png"><link href="/assets/global.css" rel="stylesheet"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>phyopt | Ricardo Semião</title><!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
   window.MathJax = {
     chtml: {
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
@@ -27,42 +27,10 @@ x \in X,~ \tilde{x} \in \tilde{X}
 \end{array}
 \]
 See the readme and vignettes for more details on this format of problems, and
-when a phy algorithm would be useful."><link rel="stylesheet" href="../rspg_style.css"></head><body>
-  <header id="site-header"><div class="header-block"></div>
-      <nav><ul><li class="nav-li">
-                  <a href="/">Home</a>
-              </li>
-              <li class="nav-li">
-                  <a href="/cv.html">CV</a>
-              </li>
-              <li class="nav-drop">
-                  <p>Courses</p>
-                  <button></button>
-                  <ul><li class="nav-li">
-                          <a href="/course-rfcd/">R (RFCD)</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/course-ccia/">CS (CCIA)</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/course-paaml/">Python (PAAML)</a>
-                      </li>
-                  </ul></li>
-              <li class="nav-drop">
-                  <p>Packages</p>
-                  <button></button>
-                  <ul><li class="nav-li">
-                          <a href="/mtsdesc/">mtsdesc</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/phyopt/">phyopt</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/morphdown/">morphdown</a>
-                      </li>
-                  </ul></li>
-          </ul></nav><div class="header-block"></div>
-  </header><a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+when a phy algorithm would be useful."><link rel="stylesheet" href="../assets/rspd_module.css"></head><body>
+  <!-- @@site-header@@ added in the personal site build step -->
+
+  <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
 
@@ -80,7 +48,7 @@ when a phy algorithm would be useful."><link rel="stylesheet" href="../rspg_styl
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/example.html">Using the Phy Algorithm</a></li>
@@ -89,7 +57,7 @@ when a phy algorithm would be useful."><link rel="stylesheet" href="../rspg_styl
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ricardo-semiao/phyopt/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="nav-link" href="https://github.com/ricardo-semiao/phyopt/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -99,7 +67,7 @@ when a phy algorithm would be useful."><link rel="stylesheet" href="../rspg_styl
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Optimize a function with the PB-Hybrid algorithm</h1>
-      <small class="dont-index">Source: <a href="https://github.com/ricardo-semiao/phyopt/blob/HEAD/R/optimize.R" class="external-link"><code>R/optimize.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ricardo-semiao/phyopt/blob/HEAD/R/optimize.R"><code>R/optimize.R</code></a></small>
       <div class="d-none name"><code>optimize_phy.Rd</code></div>
     </div>
 
@@ -132,7 +100,7 @@ when a phy algorithm would be useful.</p>
 <span>  stopper <span class="op">=</span> <span class="fu"><a href="flow_stopper.html">flow_stopper</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  logger <span class="op">=</span> <span class="fu"><a href="flow_logger.html">flow_logger</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  check_samples <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  check_op <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>  check_op <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -218,7 +186,7 @@ recommend seeing <code><a href="../articles/example.html">vignette("example")</a
 <em></em>\(\tilde{x}_s\) -, <code>x_dom</code>, <code>t</code> - the current iteration -, and
 <code>xtil_s</code> - the current sample.</p></li>
 <li><p>Returns: A data.frame with four columns:</p><ul><li><p><code>x</code>: A <em></em>\(1 \times m\) vector of optimal values <em></em>\(x^*\), given
-<em></em>\(\tilde{x}_s\). Hint: use <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> to create matrix-columns.</p></li>
+<em></em>\(\tilde{x}_s\). Hint: use <code><a href="https://rdrr.io/r/base/AsIs.html">I()</a></code> to create matrix-columns.</p></li>
 <li><p><code>xtil</code>: A <em></em>\(1 \times \tilde{m}\) matrix with <code>xtil_s</code>.</p></li>
 <li><p><code>f</code>: The value of <em></em>\(f(x^*, \tilde{x}_s)\) (a single double).</p></li>
 <li><p><code>i</code>: Any meta-information you want to add, for use in the <code>updater</code> or
@@ -239,7 +207,7 @@ that <em></em>\(N\) can change between iterations.</p></li>
   </div>
 
   <footer id="site-footer"><div>
-          <p>Page built on <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>, with <a href="https://github.com/ricardo-semiao/ricardo-semiao/tree/main/themes/rspkgdown" class="external-link">rspkgdown</a> theme.</p>
+          <p>Page built on <a href="https://pkgdown.r-lib.org/">pkgdown</a>, with <a href="https://github.com/ricardo-semiao/ricardo-semiao/tree/main/themes/rspkgdown">rspkgdown</a> theme.</p>
       </div>
-  </footer><script src="/site_assets/site_structure.js"></script></body></html>
+  </footer><!-- @@site-scripts@@ added in the personal site build step --></body></html>
 

@@ -1,18 +1,18 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>https://ricardo-semiao.github.io/phyopt/404.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/articles/example.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/articles/index.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/articles/theoretical_framework.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/authors.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/index.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/LICENSE-text.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/LICENSE.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/news/index.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/reference/flow_logger.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/reference/flow_stopper.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/reference/get_metric.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/reference/index.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/reference/optimize_phy.html</loc></url>
-<url><loc>https://ricardo-semiao.github.io/phyopt/reference/phyopt-package.html</loc></url>
+<url><loc>./404.html</loc></url>
+<url><loc>./articles/example.html</loc></url>
+<url><loc>./articles/index.html</loc></url>
+<url><loc>./articles/theoretical_framework.html</loc></url>
+<url><loc>./authors.html</loc></url>
+<url><loc>./index.html</loc></url>
+<url><loc>./LICENSE-text.html</loc></url>
+<url><loc>./LICENSE.html</loc></url>
+<url><loc>./news/index.html</loc></url>
+<url><loc>./reference/flow_logger.html</loc></url>
+<url><loc>./reference/flow_stopper.html</loc></url>
+<url><loc>./reference/get_metric.html</loc></url>
+<url><loc>./reference/index.html</loc></url>
+<url><loc>./reference/optimize_phy.html</loc></url>
+<url><loc>./reference/phyopt-package.html</loc></url>
 </urlset>
 

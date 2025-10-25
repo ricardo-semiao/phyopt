@@ -5,10 +5,9 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="Ricardo Semião e Castro" name="Author">
-<link href="/site_assets/img/icon.png" rel="icon" type="image/png">
-<link href="/site_assets/img/icon.png" rel="shortcut icon" type="image/png">
-<link href="/site_assets/site_structure.css" rel="stylesheet">
-<link href="/site_assets/site_style.css" rel="stylesheet">
+<link href="/assets/img/icon.png" rel="icon" type="image/png">
+<link href="/assets/img/icon.png" rel="shortcut icon" type="image/png">
+<link href="/assets/global.css" rel="stylesheet">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,49 +25,12 @@
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="theoretical_framework_files/libs/quarto-html/popper.min.js"></script><script src="theoretical_framework_files/libs/quarto-html/tippy.umd.min.js"></script><link href="theoretical_framework_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="theoretical_framework_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Theoretical Framework">
-<link rel="stylesheet" href="../rspg_style.css">
+<link rel="stylesheet" href="../assets/rspd_module.css">
 </head>
 <body>
-  <header id="site-header"><div class="header-block"></div>
-      <nav><ul>
-<li class="nav-li">
-                  <a href="/">Home</a>
-              </li>
-              <li class="nav-li">
-                  <a href="/cv.html">CV</a>
-              </li>
-              <li class="nav-drop">
-                  <p>Courses</p>
-                  <button></button>
-                  <ul>
-<li class="nav-li">
-                          <a href="/course-rfcd/">R (RFCD)</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/course-ccia/">CS (CCIA)</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/course-paaml/">Python (PAAML)</a>
-                      </li>
-                  </ul>
-</li>
-              <li class="nav-drop">
-                  <p>Packages</p>
-                  <button></button>
-                  <ul>
-<li class="nav-li">
-                          <a href="/mtsdesc/">mtsdesc</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/phyopt/">phyopt</a>
-                      </li>
-                      <li class="nav-li">
-                          <a href="/morphdown/">morphdown</a>
-                      </li>
-                  </ul>
-</li>
-          </ul></nav><div class="header-block"></div>
-  </header><a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+  <!-- @@site-header@@ added in the personal site build step -->
+
+  <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
 
@@ -88,7 +50,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="active nav-item dropdown">
+<li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/example.html">Using the Phy Algorithm</a></li>
@@ -101,7 +63,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ricardo-semiao/phyopt/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="nav-link" href="https://github.com/ricardo-semiao/phyopt/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -116,7 +78,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/ricardo-semiao/phyopt/blob/HEAD/vignettes/theoretical_framework.qmd" class="external-link"><code>vignettes/theoretical_framework.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ricardo-semiao/phyopt/blob/HEAD/vignettes/theoretical_framework.qmd"><code>vignettes/theoretical_framework.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -240,7 +202,7 @@
 </li>
 <li>Additionally, the domain can be split into groups and sampling done within each group (stratified/cluster-based sampling).</li>
 </ul>
-<p>The main goal is to guarantee that the algorithm will be able to explore the whole domain. Kazimipour et. al. <a href="https://doi.org/10.1109/CEC.2014.6900618" class="external-link">(2014)</a> provides a comprehensive review of initialization methods.</p>
+<p>The main goal is to guarantee that the algorithm will be able to explore the whole domain. Kazimipour et. al. <a href="https://doi.org/10.1109/CEC.2014.6900618">(2014)</a> provides a comprehensive review of initialization methods.</p>
 <p>Then, to guarantee validity of the <span class="math inline">\(\tilde{g}\)</span> constraints, there are also several methods:</p>
 <ul>
 <li>Rejecting or repairing samples that break the constraints.
@@ -285,7 +247,7 @@
 <li>Noise mutation: randomly choosing a dimension to add noise.</li>
 <li>The amount of crossover and mutation, amongst others, can be hyperparameters, which can even depend on the iteration <span class="math inline">\(t\)</span>.</li>
 </ul>
-<p>Again, not remotely an exhaustive list. More on crossover and mutation can be found in Kora and Yadlapalli <a href="https://doi.org/10.5120/ijca2017913370" class="external-link">(2017)</a>, De Falco et. al. <a href="https://doi.org/10.1016/S1568-4946(02)00021-2" class="external-link">(2002)</a>, but many other random optimization literatures can be considered.</p>
+<p>Again, not remotely an exhaustive list. More on crossover and mutation can be found in Kora and Yadlapalli <a href="https://doi.org/10.5120/ijca2017913370">(2017)</a>, De Falco et. al. <a href="https://doi.org/10.1016/S1568-4946(02)00021-2">(2002)</a>, but many other random optimization literatures can be considered.</p>
 <p>Note that these operators need to account for possibly non-real or non-numeric variables, and also for the constraints <span class="math inline">\(\tilde{g}\)</span>. The flexibility of being able to define the operator is a major advantage of the method.</p>
 </section></section><section class="section level2"><h2 id="sec-implementation">Coding Implementation<a class="anchor" aria-label="anchor" href="#sec-implementation"></a>
 </h2>
@@ -409,8 +371,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 
   <footer id="site-footer"><div>
-          <p>Page built on <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>, with <a href="https://github.com/ricardo-semiao/ricardo-semiao/tree/main/themes/rspkgdown" class="external-link">rspkgdown</a> theme.</p>
+          <p>Page built on <a href="https://pkgdown.r-lib.org/">pkgdown</a>, with <a href="https://github.com/ricardo-semiao/ricardo-semiao/tree/main/themes/rspkgdown">rspkgdown</a> theme.</p>
       </div>
-  </footer><script src="/site_assets/site_structure.js"></script>
+  </footer><!-- @@site-scripts@@ added in the personal site build step -->
 </body>
 </html>
