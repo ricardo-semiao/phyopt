@@ -10,9 +10,11 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/ricardo-semiao/phyopt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ricardo-semiao/phyopt/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/phyopt)](https://CRAN.R-project.org/package=phyopt)
+[![Codecov test
+coverage](https://codecov.io/gh/ricardo-semiao/phyopt/graph/badge.svg)](https://app.codecov.io/gh/ricardo-semiao/phyopt)
 <!-- badges: end -->
 
-This packages implements a two-step, population-based, hybrid
+This package implements a two-step, population-based, hybrid
 optimization algorithm, for solving problems of the form:
 
 $$
@@ -24,16 +26,19 @@ $$
 
 The paper fully describing the motivation, theoretical framework, and
 method design is available at
-`vignette("theoretical_framework", package = "phyopt")`.
+`vignette("theoretical_framework", package = "phyopt")`. The goal of the
+package is to provide a flexible framework for users to implement their
+own optimization strategies, by combining different types of
+*initializers*, *optimizers*, and *updaters*.
 
 For now, see the vignette `vignette("example", package = "phyopt")`,
 which contains a simple example but a thorough explanation of how the
 package works. Additionally, see the documentation for the
-`optimize_phy()` function, which is the main function of the package
+`optimize_phy()` function, which is the main function of the package.
 
-**Disclaimer:** this package is in the early most stage of life. It
-hasn’t been thoroughly tested and can present several bugs. I don’t
-recommend using it for large-scale projects, yet.
+**Disclaimer:** this package is in an early stage of development. It
+hasn’t been thoroughly tested and may contain several bugs. I don’t
+recommend using it for large-scale projects yet.
 
 Please report any problems as a GitHub
 [issue](https://github.com/ricardo-semiao/morphdown/issues). Other
@@ -54,15 +59,14 @@ devtools::install_github("ricardo-semiao/phyopt")
 
 ## Development Comments
 
-This package is young, and puts much of the responsibility of the
-optimization on the user. Having said that, I think it is decently
-solid. Once I implement tests and run more examples, I figure it will be
-already stable.
+This package is young and places much of the optimization responsibility
+on the user. That said, I believe it is reasonably solid. Once I
+implement tests and run more examples, I expect it will be stable.
 
 Some of the more important features I plan to add in the future are:
 
 - The `testthat` package structure is created for the package, but I
-  haven’t had the time to write unir tests yet.
+  haven’t had the time to write unit tests yet.
 - Add more complicated examples to
   `vignette("example", package = "phyopt")`.
 - Expand the suggested metrics on `get_metrics`, also add suggestions
@@ -76,7 +80,7 @@ Some of the more important features I plan to add in the future are:
 
 Note that this package:
 
-- Follows the [tydiverse style guide](https://style.tidyverse.org/).
+- Follows the [tidyverse style guide](https://style.tidyverse.org/).
   - Using the [styler](https://styler.r-lib.org/) and
     [lintr](https://lintr.r-lib.org/) packages for style consistency.
 - Uses [testthat 3](https://testthat.r-lib.org/) for automate tests.

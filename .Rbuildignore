@@ -15,3 +15,5 @@
 ^vignettes/*_files$
 ^site_assets$
 ^_extensions/$
+^revdep$
+^codecov\.yml$

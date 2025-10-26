@@ -47,7 +47,7 @@ $$
 $$
 -->
 
-First, lets load the package:
+First, let's load the package:
 
 <!-- windows-latest (release) had hard time having phyopt pre-installed -->
 
@@ -76,7 +76,7 @@ logger <- flow_logger()
 
 # Solving The Example
 
-First, lets define the mathematical objects of the problem:
+First, let's define the mathematical objects of the problem:
 
 ```{r}
 f <- \(x, xtil) x^2 + xtil^2
@@ -88,19 +88,19 @@ x_dom <- xtil_dom <- list(c(-10, 10))
 
 Why this format for `x_dom`? It could be different. In the end, it is whichever format will be useful for the way you'll define your operators.
 
-Lets get to it then, for this problem, I'll choose a random (uniform) sampler for initialization, a golden search for optimization, and a genetic algorithm's approach of crossover+mutation for the updater. This could've been a different choice, and the user can even mix and match choices.
+Let's get to it then; for this problem, I'll choose a random (uniform) sampler for initialization, a golden search for optimization, and a genetic algorithm's approach of crossover+mutation for the updater. This could've been a different choice, and the user can even mix and match choices.
 
 
 ## Initializer
 
-The numbers of samples $N$ will be fixed as $10$, so I'll set it in the beginning. Then, consider this example of random sampler, that resamples `draw` if it fails the constraint:
+The number of samples $N$ will be fixed at $10$, so I'll set it at the start. Then, consider this example of random sampler, that resamples `draw` if it fails the constraint:
 
 ```{r}
 n_samples <- 10
 
 initializer <- function(xtil_dom, gtil) {
   xtil <- rep(NA, n_samples)
-  
+
   for (s in seq_len(n_samples)) {
     draw <- NA
     while (is.na(draw)) {
@@ -123,7 +123,7 @@ initializer(xtil_dom, gtil)
 
 ## Optimizer
 
-Now, lets do the golden search optimizer. Se the [Wikipedia page](https://en.wikipedia.org/wiki/Golden-section_search) to learn more about it.
+Now, let's do the golden search optimizer. See the [Wikipedia page](https://en.wikipedia.org/wiki/Golden-section_search) to learn more about it.
 
 ```{r}
 optimizer <- function(f_s, g_s, x_dom, t, xtil_s) {
@@ -155,7 +155,7 @@ optimizer <- function(f_s, g_s, x_dom, t, xtil_s) {
 }
 ```
 
-Again, the arguments names are required. They denote that the `optimizer` will run once for every sample $xtil_s$ in the current population $S_t$. The functions `f_s` and `g_s` will receive values as below:
+Again, the argument names are required. They denote that the `optimizer` will run once for every sample $xtil_s$ in the current population $S_t$. The functions `f_s` and `g_s` will receive values as below:
 
 ```{r}
 xtil_s <- 5
@@ -165,14 +165,14 @@ g_s <- \(x) g(x, xtil_s)
 optimizer(f_s = f_s, g_s = g_s, x_dom = x_dom, t = 5, xtil_s = xtil_s)
 ```
 
-Note the required data frame format. Also note how `I(.)` is used to create a matrix column. Did you knew that data frames could have matrices for columns? See this section of [Advanced R (2e)](https://adv-r.hadley.nz/vectors-chap.html?q=I(#matrix-and-data-frame-columns) for more information. This is a very neat trick that enables the very elegant use of the `flow_*` `formulas` evaluation.
+Note the required data frame format. Also note how `I(.)` is used to create a matrix column. Did you know that data frames can have matrices for columns? See this section of [Advanced R (2e)](https://adv-r.hadley.nz/vectors-chap.html?q=I(#matrix-and-data-frame-columns) for more information. This is a very neat trick that enables the very elegant use of the `flow_*` `formulas` evaluation.
 
 Also note that one could create an optimizer that randomly chooses from a list of optimizers, use different ones at the same time, for sensitivity reasons.
 
 
 ## Joining The Pieces
 
-Lets join what we have. In simple terms, the algorithm initializes as below:
+Let's join what we have. In simple terms, the algorithm initializes as below:
 
 ```{r}
 results <- vector("list", length(stopper$iter_upper))
@@ -212,7 +212,7 @@ results[[t]]
 
 ## Updater
 
-Now lets move forward, and define the genetic algorithm approach to update the sample. We sort $S_t$ based on the lowest values of $f$ `decreasing = FALSE`, as we are looking for a minimum.
+Now let's move forward and define the genetic algorithm approach to update the sample. We sort $S_t$ based on the lowest values of $f$ `decreasing = FALSE`, as we are looking for a minimum.
 
 Then, we select pairs of values, with greater probability if they have lower values. They are used to create a "child", which is "mutated" with random multiplicative noise. Finally, the constraint is checked and triggers a resampling if needed.
 
@@ -239,16 +239,16 @@ updater <- function(xtil_dom, gtil, r_t, t) {
 }
 ```
 
-Again, fixed argument names and matrix result. See the output below:
+Again, fixed argument names and a matrix result. See the output below:
 
 ```{r}
 updater(xtil_dom = xtil_dom, gtil = gtil, r_t = results[[t]], t = t)
 ```
 
 
-## The `optimize_phy` Aggregation
+## The `optimize_phy()` Aggregation
 
-All of these ingredients are combined in the `optimize_phy` function, which also tests if:
+All of these ingredients are combined in the `optimize_phy()` function, which also tests if:
 
 - The functions have the correct arguments.
 - The domains have the correct length.
@@ -259,7 +259,7 @@ All of these ingredients are combined in the `optimize_phy` function, which also
 
 ## Metrics
 
-Lets talk about `flow_stopper` and `flow_logger`. See the full help page for details, but `flow_stopper` recives a list such as:
+Let's talk about `flow_stopper` and `flow_logger`. See the full help page for details, but `flow_stopper` receives a list such as:
 
 ```{r, results='hide'}
 list(
@@ -269,14 +269,14 @@ list(
 )
 ```
 
-Each element is a formula, with an expression on the LHS that can access the results up until that point, ie:
+Each element is a formula, with an expression on the LHS that can access the results up until that point, i.e.:
 
 - The current iteration `t` or `time`.
 - The sequences of `f` (a $t \times 1$ vector) for all iterations.
-- The sequence of `x` (a $t \times m$ matrix) or `x` (a $t \times \tilde{m}$ matrix).
+- The sequence of `x` (a $t \times m$ matrix) or `xtil` (a $t \times \tilde{m}$ matrix).
 - The sequence of meta-information `i`, whichever format you made it to be.
 
-That is, the user can define any metric that he wants. This expression will be evaluated in the current context of the algorithm, via non-standard evaluation (again, [Advanced R](https://adv-r.hadley.nz/evaluation.html?q=non-standar#introduction-19), yes, that is my favorite R book, how did you knew?), using the columns of $results_t$ as variables (hence the beauty of the matrix-columns).
+That is, the user can define any metric they want. This expression will be evaluated in the current context of the algorithm, via non-standard evaluation (again, [Advanced R](https://adv-r.hadley.nz/evaluation.html?q=non-standar#introduction-19), yes, that is my favorite R book, how did you know?), using the columns of $results_t$ as variables (hence the beauty of the matrix-columns).
 
 Then, the RHS is an expression that takes the value of the metric in `.m` and returns a single boolean.
 
@@ -284,7 +284,7 @@ Finally, the `check_expr` is an expression that gets the vector of all the boole
 
 `flow_logger` is very similar, but can also access the metrics calculated as variables (hence the names on the list above), and the RHS is a function that formats `.m` into a single string.
 
-Lets set them as below. The only stopping criteria is reaching 20 iterations.
+Let's set them as below. The only stopping criterion is reaching 20 iterations.
 
 ```{r}
 stopper <- flow_stopper(list(max_iter = t ~ .m >= 20))
@@ -305,7 +305,7 @@ str(logger)
 
 ## The Full Algorithm
 
-Lets run all!
+Let's run everything!
 
 ```{r}
 optima <- optimize_phy(

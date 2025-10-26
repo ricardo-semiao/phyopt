@@ -87,7 +87,6 @@ optimize_phy <- function(
   env_main <- current_env()
   test_funs(f, g, gtil, initializer, optimizer, updater, env = env_main)
   test_classes(flow_stopper = stopper, flow_logger = logger, env = env_main)
-  #test_domains(x_dom, xtil_dom, env = env_main) not implemented
 
   # Initialize containers
   results <- vector("list", stopper$iter_upper)

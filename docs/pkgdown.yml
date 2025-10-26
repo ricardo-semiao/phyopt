@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   example: example.html
   theoretical_framework: theoretical_framework.html
-last_built: 2025-10-25T22:01Z
+last_built: 2025-10-26T00:01Z
 urls:
   reference: ./reference
   article: ./articles

@@ -1,8 +1,7 @@
 .Rproj.user
-dev.R
 inst/doc
 /doc/
 /Meta/
 phyopt.code-workspace
 **/.quarto/
-site_assets/
+personal/

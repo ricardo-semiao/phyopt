@@ -39,9 +39,8 @@
 #'
 #' @export
 flow_stopper <- function(
-  formulas = list(get_metric$iter(100), get_metric$f_prop(0.01)),
-  check_expr = ~ any(.ms, na.rm = TRUE), iter_upper = 1e4
-) {
+    formulas = list(get_metric$iter(100), get_metric$f_prop(0.01)),
+    check_expr = ~ any(.ms, na.rm = TRUE), iter_upper = 1e4) {
   env_created <- caller_env()
   check_expr <- f_rhs(check_expr)
 
@@ -99,13 +98,12 @@ flow_stopper <- function(
 #'
 #' @export
 flow_logger <- function(
-  formulas_list = list(list(
-    t ~ paste("=> Iter:", .m),
-    mean(f) ~ paste("mean(f):", round(.m, 4))
-  )),
-  log_each = 1, sep = " -- ",
-  args_alert = list(), args_ul = list()
-) {
+    formulas_list = list(list(
+      t ~ paste("=> Iter:", .m),
+      mean(f) ~ paste("mean(f):", round(.m, 4))
+    )),
+    log_each = 1, sep = " -- ",
+    args_alert = list(), args_ul = list()) {
   env_created <- caller_env()
 
   log <- function(results_t, t, time, metrics_t) {

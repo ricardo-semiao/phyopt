@@ -89,19 +89,19 @@
 
     <section class="section level2"><h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>In this article, I introduce the motivation and the theoretical framework behind the <code>phyopt</code> package. Consider also seeing the <code><a href="../articles/example.html">vignette("example", package = "phyopt")</a></code> article for a practical example and implementation explanation of the algorithm.</p>
-<p>There is a literature on the use of <em>hybrid optimization methods</em> for using two stages to firstly deal with complex aspects of the problem, and then solve the remaining simpler problem with more efficient methods.</p>
-<p>I consider hybrid methods, with a random first step, as they provide space for custom operators, possibly based on heuristics. This flexibility is important to solve non-standard problems.</p>
-<p>I’ll start by describing the problems of interest and rewriting all of them in the same language in section <a href="#sec-theory" class="quarto-xref">Section 2</a>. With this generalist framing, I’ll describe the method’s design in section <a href="#sec-design" class="quarto-xref">Section 3</a>, and the essence of its coding implementation in <a href="#sec-implementation" class="quarto-xref">Section 4</a>.</p>
+<p>In this article, I present the motivation and the theoretical framework behind the <code>phyopt</code> package. See also the <code><a href="../articles/example.html">vignette("example", package = "phyopt")</a></code> article for a practical example and an implementation explanation of the algorithm.</p>
+<p>There is a literature on the use of <em>hybrid optimization methods</em> that use two stages to first deal with complex aspects of the problem and then solve the remaining simpler problem with more efficient methods.</p>
+<p>I focus on hybrid methods with a random first step, as they provide space for custom operators, possibly based on heuristics. This flexibility is important to solve non-standard problems.</p>
+<p>I’ll start by describing the problems of interest and rewriting all of them in the same language in section <a href="#sec-theory" class="quarto-xref">Section 2</a>. With this general framing, I’ll describe the method’s design in section <a href="#sec-design" class="quarto-xref">Section 3</a>, and the essence of its coding implementation in <a href="#sec-implementation" class="quarto-xref">Section 4</a>.</p>
 </section><section class="section level2"><h2 id="sec-theory">Theoretical Framework<a class="anchor" aria-label="anchor" href="#sec-theory"></a>
 </h2>
 <section class="level2"><h3 id="considered-problems-and-examples">Considered Problems and Examples<a class="anchor" aria-label="anchor" href="#considered-problems-and-examples"></a>
 </h3>
-<p>I’ll consider three types of ‘bad-behaviors’: non-real variables domains (integer, categorical etc.); variables that affect the objective or constraints functions in a complex (non-linear) way; and endogenous structure – problems where the structure of the problem is part of the optimization choice (eg. the objetive function, or its domain, can be chosen).</p>
+<p>I’ll consider three types of ‘bad behaviors’: non-real variable domains (integer, categorical, etc.); variables that affect the objective or constraints functions in a complex (non-linear) way; and endogenous structure – problems where the structure of the problem is part of the optimization choice (e.g., the objective function or its domain can be chosen).</p>
 <section class="level3"><h4 id="different-natures-of-variables">Different Natures of Variables<a class="anchor" aria-label="anchor" href="#different-natures-of-variables"></a>
 </h4>
 <p>Also consider variables with separable characteristics: some imply a clear global optimum and others don’t – <span class="math inline">\((x + \sin(2y))\)</span>; or where some are convex and others aren’t – <span class="math inline">\((x^2 + \text{floor}(x)^2)\)</span>; or some have ‘difficult’ constraints and others don’t.</p>
-<p>I am going to use examples from economics, but the context doesn’t really matter, it is the mathematical characteristics that are important.</p>
+<p>I use examples from economics, but the context does not really matter; the mathematical characteristics that are important.</p>
 </section><section class="level3"><h4 id="non-real-valued-variables">Non Real-Valued Variables<a class="anchor" aria-label="anchor" href="#non-real-valued-variables"></a>
 </h4>
 <p>Consider a central planner choosing lump-sum taxes <span class="math inline">\(\tau\)</span> to maximize some social welfare function. The higher the tax, the higher the government’s utility, and smaller the population’s <span class="math inline">\(i \in \{1, 2, \dots, N\}\)</span>.</p>
@@ -111,7 +111,7 @@
     u: \mathbb{R}^+ \to \mathbb{R}
 \end{array}
 \]</span></p>
-<p>Let’s add difficulty by steps. Consider the discrete nature of money, we have a mixed-integer problem:</p>
+<p>Let’s add difficulty in steps. Considering the discrete nature of money, we have a mixed-integer problem:</p>
 <p><span class="math display">\[
 \begin{array}{lr}
     \max_{\tau} u(\tau) = U_G(\tau) + \sum_{i = 1}^N U_P^i(\tau), &amp;
@@ -128,7 +128,7 @@
 \]</span></p>
 </section><section class="level3"><h4 id="endogenous-structure">Endogenous Structure<a class="anchor" aria-label="anchor" href="#endogenous-structure"></a>
 </h4>
-<p>What if the central planner, before choosing <span class="math inline">\(\tau\)</span>, must commit to it being in some interval <span class="math inline">\([\underline{\tau}, \underline{\tau} + c]\)</span>, <span class="math inline">\(c \in \mathbb{R}\)</span>? Or, maybe, the number of groups can be chosen, such that <span class="math inline">\(s \in \{A, B\}\)</span> or <span class="math inline">\(\{A,B,C\}\)</span>, …?</p>
+<p>What if the central planner, before choosing <span class="math inline">\(\tau\)</span>, must commit to it being in some interval <span class="math inline">\([\underline{\tau}, \underline{\tau} + c]\)</span>, <span class="math inline">\(c \in \mathbb{R}\)</span>? Or perhaps the number of groups can be chosen, such that <span class="math inline">\(s \in \{A, B\}\)</span> or <span class="math inline">\(\{A, B, C\}\)</span>, …?</p>
 <p><span class="math display">\[
 \begin{array}{lr}
   \max_{\tau, S, \mathcal{S}} u(\tau, S) = U_G(\tau, S) + \sum_{i = 1}^N U_P^i(\tau_i(S_i)), &amp;
@@ -137,15 +137,14 @@
   u: [\underline{\tau}, \underline{\tau} + c] \to \mathbb{R}
 \end{array}
 \]</span></p>
-<p>Additionally, consider the researcher’s problem: they have data on <span class="math inline">\(\tau\)</span> and <span class="math inline">\(u(\tau; \theta)\)</span> and want to estimate some parameter <span class="math inline">\(\theta\)</span> by minimizing some loss function <span class="math inline">\(L(\theta; y - u(\tau; \theta))\)</span>. They don’t know the scale of the abstract parameter <span class="math inline">\(\theta\)</span> but must choose a domain for the computational method of their choosing:</p>
+<p>Additionally, consider the researcher’s problem: they have data on <span class="math inline">\(\tau\)</span> and <span class="math inline">\(u(\tau; \theta)\)</span> and want to estimate some parameter <span class="math inline">\(\theta\)</span> by minimizing some loss function <span class="math inline">\(L(\theta; y - u(\tau; \theta))\)</span>. They do not know the scale of the abstract parameter <span class="math inline">\(\theta\)</span> but must choose a domain for their computational method.</p>
 <p><span class="math display">\[
 \begin{array}{lr}
   \min_{\theta, \Theta} L(\theta; y - u(\tau; \theta)), &amp;
   L: \Theta \to \mathbb{R}
 \end{array}
 \]</span></p>
-<p>While this formulation could be interesting, it is not fundamentally different from using a general domain and creating a new constraint <span class="math inline">\(x \in \{\underline{\tau}, \underline{\tau}+ c\}\)</span>. The last example didn’t have a rule, but I’ll show that we can rewrite it too in the same way.</p>
-<p>Similar manipulations could be done if the endogeneity of the structure was in a set of objective function options.</p>
+<p>While this formulation could be interesting, it is not fundamentally different from using a general domain and creating a new constraint <span class="math inline">\(x \in \{\underline{\tau}, \underline{\tau} + c\}\)</span>. Similar manipulations could be done if the endogeneity of the structure were in a set of objective function options.</p>
 </section></section><section class="level2"><h3 id="reframing-the-problems">Reframing the Problems<a class="anchor" aria-label="anchor" href="#reframing-the-problems"></a>
 </h3>
 <p>Consider below the general problem of optimizing a real-value function, with possibly non-real domain. I’ll show alterations that can be done to transform it into a generalist problem, aligned with hybrid methods.</p>
@@ -155,7 +154,7 @@
   f: X \to \mathbb{R}^n,~ g: X \to \mathbb{R}^m,~ X \in \mathcal{X}
 \end{array}
 \]</span></p>
-<p>Where: the domain is endogenous with options in <span class="math inline">\(\mathcal{X}\)</span>; <span class="math inline">\(n, m \in \mathbb{N}\)</span> are the dimensions of the result and constraints, respectively; the restrictions can be irrelevant <span class="math inline">\(g(x) = 0\)</span>; and not all dimensions of <span class="math inline">\(x\)</span> need be used in both <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>.</p>
+<p>Where: the domain is endogenous with options in <span class="math inline">\(\mathcal{X}\)</span>; <span class="math inline">\(n, m \in \mathbb{N}\)</span> are the dimensions of the result and constraints, respectively; the restrictions can be irrelevant <span class="math inline">\(g(x) = 0\)</span>; and not all dimensions of <span class="math inline">\(x\)</span> need to be used in both <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>.</p>
 <p>First, note that we can always separate, from the full <span class="math inline">\(x\)</span>, the variables <span class="math inline">\(\tilde{x}\)</span> to be worked only on the first step. If some constraints depend only on <span class="math inline">\(\tilde{x}\)</span>, we can separate them into <span class="math inline">\(\tilde{g}(\tilde{x})\)</span>.</p>
 <p>Additionally, we can map the domain options <span class="math inline">\(\mathcal{X}\)</span> into a set of indexes <span class="math inline">\(\tilde{X}\)</span>. Then, we can rewrite our problem as choosing the index:</p>
 <p><span class="math display">\[
@@ -180,10 +179,10 @@
     f: X \to \mathbb{R}^n,~ g: X \times \tilde{X} \to \mathbb{R}^{m},~ \tilde{g}: \tilde{X} \to \mathbb{R}^{\tilde{m}}
 \end{array}
 \]</span></p>
-<p>As <span class="math inline">\(X \subseteq \mathbb{R}^k\)</span> is not open and <span class="math inline">\(g: X \rightarrow \mathbb{R}^m\)</span> is not differentiable, KKT conditions aren’t satisfied. Thus, I’ll describe a method for such problem in the next section.</p>
+<p>As <span class="math inline">\(X \subseteq \mathbb{R}^k\)</span> is not open and <span class="math inline">\(g: X \rightarrow \mathbb{R}^m\)</span> is not differentiable, KKT conditions are not satisfied. Thus, I’ll describe a method for such problems in the next section.</p>
 </section></section><section class="section level2"><h2 id="sec-design">Method Design<a class="anchor" aria-label="anchor" href="#sec-design"></a>
 </h2>
-<p>First, one must define: the number <span class="math inline">\(T \in \mathbb{N}\)</span> of iterations (denoted by <span class="math inline">\(t\)</span>); the number <span class="math inline">\(N \in \mathbb{N}\)</span> of samples (denoted by <span class="math inline">\(s\)</span>) in each population <span class="math inline">\(S_t\)</span>. Denote this step by <span class="math inline">\(S_0 = \text{init}(\tilde{X}, \tilde{g})\)</span>.</p>
+<p>First, define the number <span class="math inline">\(T \in \mathbb{N}\)</span> of iterations (denoted by <span class="math inline">\(t\)</span>) and the number <span class="math inline">\(N \in \mathbb{N}\)</span> of samples (denoted by <span class="math inline">\(s\)</span>) in each population <span class="math inline">\(S_t\)</span>. Denote this step by <span class="math inline">\(S_0 = \text{init}(\tilde{X}, \tilde{g})\)</span>.</p>
 <section class="level2"><h3 id="first-step-create-initial-sample-of-tildex">First Step: Create Initial Sample of <span class="math inline">\(\tilde{x}\)</span>
 <a class="anchor" aria-label="anchor" href="#first-step-create-initial-sample-of-tildex"></a>
 </h3>
@@ -203,7 +202,7 @@
 <li>Additionally, the domain can be split into groups and sampling done within each group (stratified/cluster-based sampling).</li>
 </ul>
 <p>The main goal is to guarantee that the algorithm will be able to explore the whole domain. Kazimipour et. al. <a href="https://doi.org/10.1109/CEC.2014.6900618">(2014)</a> provides a comprehensive review of initialization methods.</p>
-<p>Then, to guarantee validity of the <span class="math inline">\(\tilde{g}\)</span> constraints, there are also several methods:</p>
+<p>Then, to guarantee validity of the <span class="math inline">\(\tilde{g}\)</span> constraints, there are several methods:</p>
 <ul>
 <li>Rejecting or repairing samples that break the constraints.
 <ul>
@@ -234,7 +233,7 @@
   R_t = (O_s)_{s = 1}^N
 \end{array}
 \]</span></p>
-<p>Some set of metrics <span class="math inline">\(M_t\)</span> are calculated from <span class="math inline">\(R_t\)</span>. Then, the stopping criteria can be drawn from a combination of options. On top of maximum time elapsed or iterations, one can consider the best/median/other sample value <span class="math inline">\((\tilde{x}, x)\)</span> or performance <span class="math inline">\(f((\tilde{x}, x))\)</span> (denote by <span class="math inline">\(o\)</span>), via: threshold <span class="math inline">\(o \gtrless k\)</span>; convergence <span class="math inline">\(|o_{t'} - o_t| &lt; \epsilon\)</span>; or stability <span class="math inline">\(sd(o) &lt; \epsilon\)</span>. Let <span class="math inline">\(R = (R_t)_{t = 1}^T\)</span> and <span class="math inline">\(M = (M_t)_{t = 1}^T\)</span>.</p>
+<p>A set of metrics <span class="math inline">\(M_t\)</span> is calculated from <span class="math inline">\(R_t\)</span>. Then the stopping criteria can be drawn from a combination of options. On top of maximum time elapsed or iterations, one can consider the best/median/other sample value <span class="math inline">\((\tilde{x}, x)\)</span> or performance <span class="math inline">\(f((\tilde{x}, x))\)</span> (denote by <span class="math inline">\(o\)</span>), via: threshold <span class="math inline">\(o \gtrless k\)</span>; convergence <span class="math inline">\(|o_{t'} - o_t| &lt; \epsilon\)</span>; or stability <span class="math inline">\(sd(o) &lt; \epsilon\)</span>. Let <span class="math inline">\(R = (R_t)_{t = 1}^T\)</span> and <span class="math inline">\(M = (M_t)_{t = 1}^T\)</span>.</p>
 </section><section class="level2"><h3 id="third-step-update-the-sample">Third Step: Update the Sample<a class="anchor" aria-label="anchor" href="#third-step-update-the-sample"></a>
 </h3>
 <p>The last step is to update the sample: <span class="math inline">\(S_{t+1} = \text{update}(\tilde{X}, \tilde{g}, t, S_t, R_t)\)</span>. The general objective is to create a new population in the “direction” of the best performing samples in <span class="math inline">\(S_t\)</span>. There are many literatures that motivate <span class="math inline">\(\text{update}\)</span> operators, and it will be user-supplied in the coding implementation, such that the setup can encompass many options.</p>
@@ -259,9 +258,9 @@
 <li>The operators <code>initializer</code>, <code>optimizer</code>, and <code>updater</code>, which must receive the arguments described in the previous section, and return an output in a specific format.</li>
 <li>The helper <code>stopper</code>, that calculates metrics of the performance at each iteration, and sets the stopping criteria; and <code>logger</code>, that logs the performance to the console for user feedback. They are created by the helper functions <code><a href="../reference/flow_stopper.html">flow_stopper()</a></code> and <code><a href="../reference/flow_logger.html">flow_logger()</a></code>.</li>
 </ul>
-<p>The algorithm is presented below. The user-provided function calls are wrapped in <code>try_op</code> function, to catch and notify errors in a user-friendly way. The notation <code>x\$y</code> indicates an object <span class="math inline">\(y\)</span> within an object <span class="math inline">\(x\)</span>.</p>
+<p>The algorithm is presented below. The user-provided function calls are wrapped in the <code>try_op</code> function to catch and report errors in a user-friendly way. The notation <code>x\$y</code> indicates an object <span class="math inline">\(y\)</span> within an object <span class="math inline">\(x\)</span>.</p>
 <p><img src="algorithm.png"></p>
-<p>It is very important to read the “Using the Phy Algorithm” vignette <code><a href="../articles/example.html">vignette("example", package = "phyopt")</a></code>, which thoroughly explains the package logic and usage. In its core, it is a wrapper to ‘organize’ the operators into a two-step hybrid procedure. It is the user that has ‘responsibility’ for making smart choices on these operators, but the package guarantees (i) thorough tests and error handling to help debugging, and (ii) a very flexible/generalist/agnostic setup, that doesn’t restrict the user. The tricks to allow (i) any size of <span class="math inline">\(m\)</span> and <span class="math inline">\(\tilde{m}\)</span>; (ii) any kind of operator; (iii) any kind of metric <span class="math inline">\(M_t\)</span> and stopping criteria are specially important.</p>
+<p>It is very important to read the “Using the Phy Algorithm” vignette <code><a href="../articles/example.html">vignette("example", package = "phyopt")</a></code>, which thoroughly explains the package logic and usage. At its core, the package wraps the operators into a two-step hybrid procedure. The user is responsible for making smart choices for these operators, but the package guarantees (i) thorough tests and error handling to help debugging, and (ii) a flexible, generalist, agnostic setup that does not restrict the user. The tricks to allow (i) any size of <span class="math inline">\(m\)</span> and <span class="math inline">\(\tilde{m}\)</span>; (ii) any kind of operator; and (iii) any kind of metric <span class="math inline">\(M_t\)</span> and stopping criteria are especially important.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

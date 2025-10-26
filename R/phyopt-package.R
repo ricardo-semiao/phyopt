@@ -9,7 +9,7 @@ NULL
 
 .onLoad <- function(libname, pkgname) {
   rlang::run_on_load()
-  #options(rlang_use_cli_format = TRUE)
+  # options(rlang_use_cli_format = TRUE)
 }
 
 on_load({

@@ -76,16 +76,16 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>This packages implements a two-step, population-based, hybrid optimization algorithm, for solving problems of the form:</p>
+<p>This package implements a two-step, population-based, hybrid optimization algorithm, for solving problems of the form:</p>
 <p><span class="math display">\[
 \begin{array}{c}
   \max_{x, \tilde{x}} f(x, \tilde{x}) ~~s.t.~~ g(x, \tilde{x}) \geq 0,~ \tilde{g}(\tilde{x}) \geq 0,\\
   x \in X,~ \tilde{x} \in \tilde{X}
 \end{array}
 \]</span></p>
-<p>The paper fully describing the motivation, theoretical framework, and method design is available at <code><a href="articles/theoretical_framework.html">vignette("theoretical_framework", package = "phyopt")</a></code>.</p>
-<p>For now, see the vignette <code><a href="articles/example.html">vignette("example", package = "phyopt")</a></code>, which contains a simple example but a thorough explanation of how the package works. Additionally, see the documentation for the <code><a href="reference/optimize_phy.html">optimize_phy()</a></code> function, which is the main function of the package</p>
-<p><strong>Disclaimer:</strong> this package is in the early most stage of life. It hasn’t been thoroughly tested and can present several bugs. I don’t recommend using it for large-scale projects, yet.</p>
+<p>The paper fully describing the motivation, theoretical framework, and method design is available at <code><a href="articles/theoretical_framework.html">vignette("theoretical_framework", package = "phyopt")</a></code>. The goal of the package is to provide a flexible framework for users to implement their own optimization strategies, by combining different types of <em>initializers</em>, <em>optimizers</em>, and <em>updaters</em>.</p>
+<p>For now, see the vignette <code><a href="articles/example.html">vignette("example", package = "phyopt")</a></code>, which contains a simple example but a thorough explanation of how the package works. Additionally, see the documentation for the <code><a href="reference/optimize_phy.html">optimize_phy()</a></code> function, which is the main function of the package.</p>
+<p><strong>Disclaimer:</strong> this package is in an early stage of development. It hasn’t been thoroughly tested and may contain several bugs. I don’t recommend using it for large-scale projects yet.</p>
 <p>Please report any problems as a GitHub <a href="https://github.com/ricardo-semiao/morphdown/issues">issue</a>. Other comments can be posted as a GitHub <a href="https://github.com/ricardo-semiao/morphdown/discussions">discussion</a>, or sent in my email below. Thank you!</p>
 <p>Author: Ricardo Semião e Castro (<a href="mailto:ricardo.semiao@outlook" class="email">ricardo.semiao@outlook</a>).</p>
 <div class="section level2">
@@ -99,10 +99,10 @@
 <div class="section level2">
 <h2 id="development-comments">Development Comments<a class="anchor" aria-label="anchor" href="#development-comments"></a>
 </h2>
-<p>This package is young, and puts much of the responsibility of the optimization on the user. Having said that, I think it is decently solid. Once I implement tests and run more examples, I figure it will be already stable.</p>
+<p>This package is young and places much of the optimization responsibility on the user. That said, I believe it is reasonably solid. Once I implement tests and run more examples, I expect it will be stable.</p>
 <p>Some of the more important features I plan to add in the future are:</p>
 <ul>
-<li>The <code>testthat</code> package structure is created for the package, but I haven’t had the time to write unir tests yet.</li>
+<li>The <code>testthat</code> package structure is created for the package, but I haven’t had the time to write unit tests yet.</li>
 <li>Add more complicated examples to <code><a href="articles/example.html">vignette("example", package = "phyopt")</a></code>.</li>
 <li>Expand the suggested metrics on <code>get_metrics</code>, also add suggestions formatters for the <code>logger</code> object.</li>
 <li>Add suggested operators for <code><a href="reference/optimize_phy.html">optimize_phy()</a></code>, with common initializers, optimizers, and updaters from the literature.</li>
@@ -111,7 +111,7 @@
 </ul>
 <p>Note that this package:</p>
 <ul>
-<li>Follows the <a href="https://style.tidyverse.org/">tydiverse style guide</a>.
+<li>Follows the <a href="https://style.tidyverse.org/">tidyverse style guide</a>.
 <ul>
 <li>Using the <a href="https://styler.r-lib.org/">styler</a> and <a href="https://lintr.r-lib.org/">lintr</a> packages for style consistency.</li>
 </ul>
@@ -158,6 +158,7 @@
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/ricardo-semiao/phyopt/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/ricardo-semiao/phyopt/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://CRAN.R-project.org/package=phyopt"><img src="https://www.r-pkg.org/badges/version/phyopt" alt="CRAN status"></a></li>
+<li><a href="https://app.codecov.io/gh/ricardo-semiao/phyopt"><img src="https://codecov.io/gh/ricardo-semiao/phyopt/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 

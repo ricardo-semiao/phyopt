@@ -1,4 +1,3 @@
-
 # Setup testing functions ------------------------------------------------------
 
 #' Test if functions have the correct arguments
@@ -18,7 +17,7 @@ test_funs <- function(f, g, gtil, initializer, optimizer, updater, env) {
   )
 
   pwalk(test_data, function(fun, fun_name, args_names) {
-    if(!identical(fn_fmls_names(fun), args_names)) {
+    if (!identical(fn_fmls_names(fun), args_names)) {
       abort(glue("`{fun_name}` must have arguments '{args_names}', in this order."), call = env)
     }
   })
@@ -64,7 +63,7 @@ try_op <- function(call, t, check_samples, check_op, s = NULL, env) {
 #' @noRd
 test_initializer <- function(output, check_samples, env) {
   cond_samples <- expr(`if`(is_null(check_samples), TRUE, NROW(output) == check_samples))
-  if (! (!is_null(attr(output, "dim"))) && eval(cond_samples)) {
+  if (!(!is_null(attr(output, "dim"))) && eval(cond_samples)) {
     abort(glue("`initializer` and `optimizer` must return a data frame with the same number of rows as `check_samples`."), call = env)
   }
 }
@@ -76,23 +75,23 @@ test_updater <- test_initializer
 #' Test if `optimizer` returns the expected object format.
 #' @noRd
 test_optimizer <- function(output, check_samples, x_dom, xtil_dom, env) {
-  if (! inherits_only(output, "data.frame") && NROW(output) == 1 && identical(colnames(output), c("x", "xtil", "f", "i"))) {
+  if (!inherits_only(output, "data.frame") && NROW(output) == 1 && identical(colnames(output), c("x", "xtil", "f", "i"))) {
     abort(glue("`optimizer` must return 1-row a data frame with columns 'x', 'xtil', 'f' and 'i', in order."), call = env)
   }
 
   walk2(output[c("x", "xtil")], list(x_dom, xtil_dom), \(x, dom) {
-    if (! inherits_only(x, "data.frame") || ncol(x) != length(dom)) {
+    if (!inherits_only(x, "data.frame") || ncol(x) != length(dom)) {
       abort(glue("`optimizer` must return a data frame for 'x' and 'xtil', with `length(x_dom)` and `length(xtil_dom)` columns respectively."), call = env)
     }
   })
 
-  if (! is_bare_numeric(output$f)) {
+  if (!is_bare_numeric(output$f)) {
     abort(glue("`optimizer` must return a bare numeric for its column 'f'."), call = env)
   }
 
   walk(output, \(x) {
     cond_samples <- expr(`if`(is_null(check_samples), TRUE, NROW(output) == check_samples))
-    if (! eval(cond_samples)) {
+    if (!eval(cond_samples)) {
       abort(glue("Every `optimizer` output's column must have `NROW(.)` equal to `check_samples`."), call = env)
     }
   })
